@@ -1,4 +1,5 @@
 <script setup>
+import CustomButton from '../global/CustomButton.vue';
 defineProps({
   title: {
     type: String,
@@ -11,6 +12,10 @@ defineProps({
   amount: {
     type: Number,
     default: 0
+  },
+  btnText: {
+    type: String,
+    default: 'محاسبه امتیاز'
   }
 });
 </script>
@@ -25,7 +30,11 @@ defineProps({
     </div>
     <slot></slot>
     <div class="points__action">
-      <!-- <button class="points__btn">محاسبه امتیاز</button> -->
+      <CustomButton :text="btnText" color="var(--Text-Title)" bgColor="var(--Primary-50)">
+        <template #btn-icon>
+          <slot name="icon"></slot>
+        </template>
+      </CustomButton>
     </div>
   </div>
 </template>
