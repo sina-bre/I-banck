@@ -1,5 +1,5 @@
 @use '../abstracts/variables' as variables;
-@use '../utils/functions' as functions;
+@use '../utilities/functions' as functions;
 
 :root {
   @each $var, $value in functions.generate-color-variables(variables.$colors) {
