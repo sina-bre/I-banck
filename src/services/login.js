@@ -1,11 +1,11 @@
 import { Axios } from '@/plugins/axiosConfig.js';
 
-const baseAPI = 'deposit-account';
+const baseAPI = 'auth/login';
 
 const methods = {
   get: (params = {}) => Axios.get(`/${baseAPI}`, { params }),
 
-  create: (data, params = {}) => Axios.post(`/${baseAPI}`, data, { params })
+  post: (data, params = {}) => Axios.post(`/${baseAPI}`, data, { params })
 };
 
 export default {
