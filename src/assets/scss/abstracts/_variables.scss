@@ -1,0 +1,98 @@
+$colors: (
+  primary: (
+    50: #eeeff7,
+    100: #c5cae2,
+    200: #a8afd3,
+    300: #808bbf,
+    400: #6775b3,
+    500: #4152a0,
+    600: #3b4b92,
+    700: #2e3a72,
+    800: #242d58,
+    900: #1b2243
+  ),
+  fail: (
+    50: #fdedea,
+    100: #f9c6bd,
+    200: #f6ab9d,
+    300: #f28471,
+    400: #ef6d55,
+    500: #eb482b,
+    600: #d64227,
+    700: #a7331f,
+    800: #812818,
+    900: #631e12
+  ),
+  black: (
+    50: #ececee,
+    100: #c3c5c9,
+    200: #a5a9af,
+    300: #7c818a,
+    400: #636974,
+    500: #3c4351,
+    600: #373d4a,
+    700: #2b303a,
+    800: #21252d,
+    900: #191c22
+  ),
+  success: (
+    50: #e6f9f2,
+    100: #b0ebd6,
+    200: #8ae2c2,
+    300: #54d4a6,
+    400: #33cc95,
+    500: #00bf7a,
+    600: #00ae6f,
+    700: #008857,
+    800: #006943,
+    900: #005033
+  )
+);
+
+$breakpoints: (
+  'xs': 400px,
+  'sm': 544px,
+  'md': 768px,
+  'lg': 960px,
+  'xl': 1280px,
+  'xxl': 1440px
+);
+
+$fonts: (
+  'thin': (
+    'file': 'Thin.woff2',
+    'weight': 100
+  ),
+  'extraLight': (
+    'file': 'ExtraLight.woff2',
+    'weight': 200
+  ),
+  'light': (
+    'file': 'Light.woff2',
+    'weight': 300
+  ),
+  'regular': (
+    'file': 'Regular.woff2',
+    'weight': 400
+  ),
+  'medium': (
+    'file': 'Medium.woff2',
+    'weight': 500
+  ),
+  'semiBold': (
+    'file': 'SemiBold.woff2',
+    'weight': 600
+  ),
+  'bold': (
+    'file': 'Bold.woff2',
+    'weight': 700
+  ),
+  'extraBold': (
+    'file': 'ExtraBold.woff2',
+    'weight': 800
+  ),
+  'black': (
+    'file': 'Black.woff2',
+    'weight': 900
+  )
+);

@@ -1,0 +1,17 @@
+@use '../abstracts/variables' as variables;
+@use '../utils/functions' as functions;
+
+:root {
+  @each $var, $value in functions.generate-color-variables(variables.$colors) {
+    #{$var}: $value;
+  }
+  --Surface: #fff;
+  --Surface-Lightblue: #f9fafb;
+  --Background: #f7f8fa;
+  --Background-rgba: rgba(247, 248, 250, 0.7);
+  --Text-Title: #3c4351;
+  --Text-Gray: #8999b9;
+  --Gray: #8999b9;
+  --Text-On-Primary: #fff;
+  --line: #e2edff;
+}
