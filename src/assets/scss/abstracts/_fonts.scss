@@ -1,0 +1,16 @@
+@use 'sass:map';
+@use '../abstracts/variables' as variables;
+
+$base-url: '../fonts/peyda/woff2/PeydaWeb-';
+
+@each $font-typography, $properties in variables.$fonts {
+  $file-url: map.get($properties, 'file');
+  $full-url: '#{$base-url}#{$file-url}';
+
+  @font-face {
+    font-family: 'Peyda';
+    src: url(#{$full-url}) format('woff2');
+    font-weight: map.get($properties, 'weight');
+    font-style: normal;
+  }
+}

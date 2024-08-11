@@ -1,0 +1,50 @@
+@use '../abstracts/variables.scss' as variables;
+
+@mixin responsive($breakpoint) {
+  @if map-has-key(variables.$breakpoints, $breakpoint) {
+    $breakpoint-value: map-get(variables.$breakpoints, $breakpoint);
+
+    @media (min-width: $breakpoint-value) {
+      @content;
+    }
+  } @else {
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+
+@mixin box($width: 100%, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin text($size, $weight: 400) {
+  font-size: $size;
+  font-weight: $weight;
+  line-height: normal;
+}
+
+@mixin cover-background {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+@mixin flex($justify: center, $align: center, $dir: row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $dir;
+}
+
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

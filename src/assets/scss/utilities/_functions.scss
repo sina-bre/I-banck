@@ -1,0 +1,19 @@
+@use 'sass:map';
+
+@function generate-color-variables($color-map) {
+  $color-vars: ();
+
+  @each $color-name, $shades in $color-map {
+    @each $shade, $color-value in $shades {
+      $color-var-name: '--#{$color-name}-#{$shade}';
+      $color-vars: map.merge(
+        $color-vars,
+        (
+          $color-var-name: $color-value,
+        )
+      );
+    }
+  }
+
+  @return $color-vars;
+}

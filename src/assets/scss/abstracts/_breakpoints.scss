@@ -1,0 +1,6 @@
+@use '../abstracts/variables' as variables;
+:root {
+  @each $name, $size in variables.$breakpoints {
+    --breakpoint-#{$name}: #{$size};
+  }
+}
