@@ -34,10 +34,8 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
-@use '../../assets/scss/utilities/mixins' as mixins;
-
 .custom-btn {
-  height: 3rem;
+  @include mixins.box($height: 3rem);
   @include mixins.flex(center, center);
   border-radius: var(--btn-radius);
   color: v-bind(color);
