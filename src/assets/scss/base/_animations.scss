@@ -1,0 +1,39 @@
+@keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes show_toast {
+    0% {
+      transform: translateX(100%);
+    }
+    40% {
+      transform: translateX(-5%);
+    }
+    80% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-10px);
+    }
+  }
+  
+  @keyframes hide_toast {
+    0% {
+      transform: translateX(-10px);
+    }
+    40% {
+      transform: translateX(0%);
+    }
+    80% {
+      transform: translateX(-5%);
+    }
+    100% {
+      transform: translateX(calc(100% + 50px));
+    }
+  }
+  
