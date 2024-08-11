@@ -1,9 +1,7 @@
 <script setup></script>
 
 <template>
-  <div>
-    <h1>سلام</h1>
-  </div>
+  <div></div>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss"></style>
