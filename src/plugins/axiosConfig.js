@@ -1,7 +1,7 @@
 import { SecureStorage } from '../helpers/storage/secureStorage.js';
 import { axios } from 'axios';
 
-export const createAxiosInstance = (baseURL) => {
+const createAxiosInstance = (baseURL) => {
   const instance = axios.create({
     baseURL: baseURL || 'https://college.apipart.ir', // Default base URL
     headers: {
@@ -41,3 +41,4 @@ export const createAxiosInstance = (baseURL) => {
 
   return instance;
 };
+export default createAxiosInstance;

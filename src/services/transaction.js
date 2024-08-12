@@ -1,17 +1,17 @@
 import createAxiosInstance from '@/plugins/axiosConfig.js';
 
-const baseAPI = 'auth/login';
-
 const axiosInstance = createAxiosInstance();
 
+const baseAPI = 'transactions';
+
 const methods = {
-  post: async (params) => {
+  get: async () => {
     try {
-      const response = await axiosInstance.post(`${baseAPI}`, params);
+      const response = axiosInstance.get(`/${baseAPI}`);
       const { data } = response;
       return data;
     } catch (error) {
-      console.error('Auth Request Error:', error);
+      console.error('transactions Error:', error);
     }
   }
 };

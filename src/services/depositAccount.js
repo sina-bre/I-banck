@@ -1,11 +1,39 @@
-import { Axios } from '@/plugins/axiosConfig.js';
+import createAxiosInstance from '@/plugins/axiosConfig.js';
 
-const baseAPI = 'deposit-account';
+const baseAPI = 'auth/login';
+
+const axiosInstance = createAxiosInstance();
 
 const methods = {
-  get: (params = {}) => Axios.get(`/${baseAPI}`, { params }),
+  get: async () => {
+    try {
+      const response = axiosInstance.get(`/${baseAPI}`);
+      const { data } = response;
+      return data;
+    } catch (error) {
+      console.error('Deposit Account Error:', error);
+    }
+  },
 
-  create: (data, params = {}) => Axios.post(`/${baseAPI}`, data, { params })
+  create: async (params) => {
+    try {
+      const response = await axiosInstance.post(`${baseAPI}`, params);
+      const { data } = response;
+      return data;
+    } catch (error) {
+      console.error('Deposit Account Create:', error);
+    }
+  },
+
+  delete: async (slug) => {
+    try {
+      const response = axiosInstance.delete(`/${baseAPI}/${slug}`);
+      const { data } = response;
+      return data;
+    } catch (error) {
+      console.error('Deposit Account Delete:', error);
+    }
+  }
 };
 
 export default {
