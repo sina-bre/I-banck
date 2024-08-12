@@ -1,11 +1,7 @@
-<script setup>
-import DashboardHeader from './components/global/DashboardHeader.vue';
-</script>
+<script setup></script>
 
 <template>
-  <div>
-    <DashboardHeader />
-  </div>
+  <div></div>
 </template>
 
 <style scoped lang="scss"></style>
