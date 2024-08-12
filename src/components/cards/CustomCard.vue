@@ -40,8 +40,6 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
-@use '../../assets/scss/utilities/mixins' as mixins;
-
 .points {
   padding: 1.5rem;
   @include mixins.box(21.125rem, 16.5rem);

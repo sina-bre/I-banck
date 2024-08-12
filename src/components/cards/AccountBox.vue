@@ -54,7 +54,6 @@ const slicedParts = computed(() => {
 </template>
 
 <style scoped lang="scss">
-@use '../../assets/scss/utilities/mixins' as mixins;
 .account {
   @include mixins.box(28.125rem, 16.25rem);
   background-image: url('../../assets/images/Noise.svg'), url('../../assets/images/Pattern.svg'),

@@ -24,7 +24,7 @@ defineProps({
 </script>
 
 <template>
-  <button class="custom-btn" :width="width" :disabled="loading">
+  <button class="custom-btn" :style="{ width }" :disabled="loading">
     <div v-if="!loading" class="custom-btn__body">
       <p>{{ text }}</p>
       <slot name="btn-icon"></slot>
@@ -60,6 +60,7 @@ defineProps({
   &__body {
     @include mixins.flex(center, center);
     gap: 0.75rem;
+    @include mixins.text(1rem, 700);
   }
 }
 </style>
