@@ -1,7 +1,11 @@
-<script setup></script>
+<script setup>
+import InformationWrapper from './components/cards/InformationWrapper.vue';
+</script>
 
 <template>
-  <div></div>
+  <div>
+    <information-wrapper />
+  </div>
 </template>
 
 <style scoped lang="scss"></style>
