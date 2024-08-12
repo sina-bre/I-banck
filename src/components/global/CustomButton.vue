@@ -24,7 +24,7 @@ defineProps({
 </script>
 
 <template>
-  <button class="custom-btn" :width="width" :disabled="loading">
+  <button class="custom-btn" :style="{ width }" :disabled="loading">
     <div v-if="!loading" class="custom-btn__body">
       <p>{{ text }}</p>
       <slot name="btn-icon"></slot>
