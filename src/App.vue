@@ -9,4 +9,4 @@ import IconLoader from './components/shared/IconLoader.vue';
   </div>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss"></style>
