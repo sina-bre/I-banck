@@ -24,7 +24,10 @@ defineProps({
           <h1 class="information-card__title">{{ title }}</h1>
         </div>
         <div class="information-card__divider"></div>
-        <div class="information-card__form">content here</div>
+        <div class="information-card__content">
+          <!-- slot content here -->
+          <slot></slot>
+        </div>
         <div class="information-card__actions">
           <CustomButton
             :text="backBtn"
@@ -70,7 +73,7 @@ defineProps({
     margin: 2.5rem 0;
   }
 
-  &__form {
+  &__content {
     width: 100%;
     @include mixins.flex($dir: column, $align: start);
     gap: 2.5rem;
