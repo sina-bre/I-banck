@@ -4,28 +4,23 @@ import * as yup from 'yup';
 import TextInput from './components/global/TextInput.vue';
 import { Form } from 'vee-validate';
 
-const emailRules = yup
-  .string()
-  .required('فیلد ایمیل نمی تواند خالی باشد.')
-  .email('ایمیل نا معتبر است');
+const schema = yup.object().shape({
+  email: yup.string().required('فیلد ایمیل نمی تواند خالی باشد.').email('ایمیل نا معتبر است')
+});
 
 const myValue = ref('');
 </script>
 
 <template>
   <div>
-    <Form>
+    <Form :validation-schema="schema">
       <TextInput
         name="email"
         label="شماره همراه"
-        labelDynamicClasses="normal"
+        labelDynamicClass="normal"
         placeholder="مثلا ۰۹۱۲۳۴۵۶۷۸۹"
         type="email"
         v-model:inputValue="myValue"
-        :rules="emailRules"
-        inputClasses="input-class"
-        inputErrorClasses="error-class"
-        inputContainerClasses="custom-input-container"
       />
     </Form>
   </div>

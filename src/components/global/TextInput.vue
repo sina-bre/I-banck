@@ -1,6 +1,6 @@
 <script setup>
-import { computed, ref } from 'vue';
-import { useField, Field, ErrorMessage } from 'vee-validate';
+import { computed } from 'vue';
+import { useField, useForm, Field, ErrorMessage } from 'vee-validate';
 
 const props = defineProps({
   name: {
@@ -11,9 +11,9 @@ const props = defineProps({
     type: String,
     default: ''
   },
-  labelDynamicClasses: {
+  labelDynamicClass: {
     type: String,
-    required: true
+    default: ''
   },
   placeholder: {
     type: String,
@@ -23,71 +23,47 @@ const props = defineProps({
     type: String,
     default: 'text'
   },
-  modelValue: {
-    type: String,
-    default: ''
-  },
   rules: {
     type: Object,
     default: () => ({})
-  },
-  inputClasses: {
-    type: String,
-    default: 'form-input'
-  },
-  inputErrorClasses: {
-    type: String,
-    default: 'input-error'
-  },
-  inputContainerClasses: {
-    type: String,
-    default: 'input-with-icon'
   }
 });
 
-const inputValue = defineModel('inputValue');
+const { value } = useField(props.name);
 
-const computedInputClasses = computed(() => props.inputClasses);
-const computedErrorClasses = computed(() => props.inputErrorClasses);
 const inputId = computed(() => props.name);
-
-useField(props.name, props.rules);
-
-const inputContainerRef = ref('');
-
-const handleFocus = () => {
-  console.log(inputContainerRef.value);
-};
+const computedInputContainerClass = computed(() =>
+  value.value ? 'input-container-class' : 'input-container-class--error'
+);
 </script>
 
 <template>
   <div class="input-wrapper">
-    <label v-if="label" :for="inputId" class="label" :class="labelDynamicClasses">{{
-      label
-    }}</label>
-    <slot name="before-start"> </slot>
-    <div :class="inputContainerClasses" class="input-container" :ref="inputContainerRef">
+    <label v-if="label" :for="inputId" class="label" :class="labelDynamicClass">{{ label }}</label>
+    <slot name="before-start"></slot>
+    <div :class="computedInputContainerClass" class="input-container">
       <div class="after-start">
         <slot name="after-start"></slot>
       </div>
       <Field
         :validate-on-input="true"
+        :validateOnBlur="false"
+        :validateOnChange="false"
         :id="inputId"
         :name="name"
         :type="type"
         :rules="rules"
         :placeholder="placeholder"
-        :class="computedInputClasses"
         class="input"
-        v-model="inputValue"
-        @focus="handleFocus"
+        v-model="value"
+        @input="handleInput"
       />
       <div class="before-end">
         <slot name="before-end"></slot>
       </div>
     </div>
     <slot name="after-end"></slot>
-    <ErrorMessage :name="name" :class="computedErrorClasses" class="error-class" as="span" />
+    <ErrorMessage :name="name" class="error-class" as="span" />
   </div>
 </template>
 
@@ -111,10 +87,20 @@ const handleFocus = () => {
   color: var(--black-100, #c3c5c9);
 }
 
-.input-wrapper:focus-within .input-container {
-  border: 2px solid var(--primary-200, #a8afd3);
+.input-container {
+  @include mixins.flex($justify: flex-start);
   border-radius: 0.375rem;
+  border: 2px solid var(--Surface-Lightblue, #f9fafb);
 }
+
+.input-wrapper:focus-within .input-container-class {
+  border-color: var(--primary-200, #a8afd3);
+}
+
+.input-wrapper:focus-within .input-container-class--error {
+  border-color: var(--fail-500, #eb482b);
+}
+
 .label {
   font-weight: 600;
 }
@@ -136,11 +122,6 @@ const handleFocus = () => {
 .error-class {
   color: var(--fail-500, #eb482b);
   @include mixins.text(0.75rem, 400);
-}
-
-.input-container {
-  @include mixins.flex($justify: flex-start);
-  border: 2px solid var(--Surface-Lightblue, #f9fafb);
 }
 
 .input-with-icon {
