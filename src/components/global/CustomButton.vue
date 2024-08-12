@@ -60,6 +60,7 @@ defineProps({
   &__body {
     @include mixins.flex(center, center);
     gap: 0.75rem;
+    @include mixins.text(1rem, 700);
   }
 }
 </style>
