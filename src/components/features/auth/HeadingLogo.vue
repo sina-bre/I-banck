@@ -1,7 +1,25 @@
+<script setup>
+import IconLoader from '@/components/shared/IconLoader.vue';
+defineProps({
+  title: {
+    type: String,
+    default: 'پارت بارنک'
+  },
+  subTitle: {
+    type: String,
+    default: 'تجربه‌ای نوین در بانک داری'
+  },
+  icon: {
+    type: String,
+    default: 'logo'
+  }
+});
+</script>
+
 <template>
   <div class="brand">
     <div class="brand__logo">
-      <img :src="imageUrl" alt="" width="100%" />
+      <IconLoader :icon="icon" width="100%" height="100%" color="var(--primary-500)" />
     </div>
     <section class="brand__info">
       <p class="brand__title">{{ title }}</p>
@@ -12,25 +30,7 @@
   </div>
 </template>
 
-<script setup>
-defineProps({
-  title: {
-    type: String,
-    default: 'پارت بارنک'
-  },
-  subTitle: {
-    type: String,
-    default: 'تجربه‌ای نوین در بانک داری'
-  },
-  imageUrl: {
-    type: String,
-    default: '../../../assets/images/Logo.svg'
-  }
-});
-</script>
-
 <style scoped lang="scss">
-@use '../../../assets/scss/utilities/mixins' as mixins;
 .brand {
   @include mixins.flex(center, center, row);
   height: 5.75rem;

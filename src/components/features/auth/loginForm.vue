@@ -12,7 +12,6 @@ import CustomButton from '@/components/global/CustomButton.vue';
 </script>
 
 <style scoped lang="scss">
-@use '../../../assets/scss/utilities/mixins' as mixins;
 .form {
   height: 12.5rem;
   @include mixins.flex(center, center, column);

@@ -15,7 +15,6 @@
 <script setup></script>
 
 <style scoped lang="scss">
-@use '../assets/scss/utilities/mixins' as mixins;
 .page-container {
   @include mixins.box(100dvw, 100dvh);
   background-color: #ecfaff;
