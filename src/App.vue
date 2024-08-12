@@ -1,11 +1,7 @@
-<script setup>
-import LoginView from './views/LoginView.vue';
-</script>
+<script setup></script>
 
 <template>
-  <div>
-    <LoginView />
-  </div>
+  <div></div>
 </template>
 
 <style scoped lang="scss"></style>
