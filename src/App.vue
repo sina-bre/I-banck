@@ -4,7 +4,7 @@ import IconLoader from './components/shared/IconLoader.vue';
 
 <template>
   <div>
-    <IconLoader icon="account" color="#fff" width="20" height="20" />
+    <IconLoader icon="search" color="red" width="20" height="20" />
     <h1>سلام</h1>
   </div>
 </template>
