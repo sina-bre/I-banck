@@ -34,6 +34,7 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
+@use '../../assets/scss/utilities/mixins' as mixins;
 .custom-btn {
   @include mixins.box($height: 3rem);
   @include mixins.flex(center, center);

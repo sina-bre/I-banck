@@ -1,8 +1,10 @@
-<script setup></script>
+<script setup>
+import LoginView from './views/LoginView.vue';
+</script>
 
 <template>
   <div>
-    <h1>سلام</h1>
+    <LoginView />
   </div>
 </template>
 

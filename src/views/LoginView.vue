@@ -1,7 +1,12 @@
 <template>
-  <div></div>
+  <RegisterPage>
+    <loginForm></loginForm>
+  </RegisterPage>
 </template>
 
-<script setup></script>
+<script setup>
+import RegisterPage from '@/layout/RegisterPage.vue';
+import loginForm from '@/components/features/auth/loginForm.vue';
+</script>
 
 <style lang="scss" scoped></style>
