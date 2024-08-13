@@ -1,5 +1,6 @@
 <script setup>
-defineProps({
+import { computed } from 'vue';
+const props = defineProps({
   text: {
     type: String,
     default: 'ورود'
@@ -19,12 +20,18 @@ defineProps({
   width: {
     type: String,
     default: '100%'
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   }
 });
+
+const computedDisable = computed(() => props.disabled || props.loading);
 </script>
 
 <template>
-  <button class="custom-btn" :style="{ width }" :disabled="loading">
+  <button class="custom-btn" :style="{ width }" :disabled="computedDisable">
     <div v-if="!loading" class="custom-btn__body">
       <p>{{ text }}</p>
       <slot name="btn-icon"></slot>
@@ -62,5 +69,10 @@ defineProps({
     gap: 0.75rem;
     @include mixins.text(1rem, 700);
   }
+}
+
+.custom-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 </style>
