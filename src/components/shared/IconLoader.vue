@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref, onMounted, markRaw } from 'vue';
-import icons from '@/helpers/icons/icons';
+import icons from '@/helpers/icons/icons.js';
 
 const props = defineProps({
   icon: {
@@ -54,5 +54,5 @@ onMounted(async () => {
     :is="iconComponent"
     :style="{ color: iconColor, width: iconWidth, height: iconHeight }"
   />
-  <p v-else>Icon could not be loaded.</p>
+  <p v-else></p>
 </template>

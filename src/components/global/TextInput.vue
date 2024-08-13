@@ -31,6 +31,10 @@ const props = defineProps({
     type: String,
     default: ''
   },
+  as: {
+    type: String,
+    default: ''
+  },
   rules: {
     type: Object,
     default: () => ({})
@@ -47,6 +51,7 @@ const computedInputContainerClass = computed(() =>
 
 <template>
   <div class="input-wrapper" :style="{ width: props.width }">
+    .label-container
     <label v-if="label" :for="inputId" class="label" :class="labelDynamicClass">{{ label }}</label>
     <slot name="before-start"></slot>
     <div :class="computedInputContainerClass" class="input-container">
@@ -60,6 +65,7 @@ const computedInputContainerClass = computed(() =>
         :id="inputId"
         :name="name"
         :type="type"
+        :as="as"
         :rules="rules"
         :placeholder="placeholder"
         class="input"
@@ -126,7 +132,7 @@ const computedInputContainerClass = computed(() =>
   @include mixins.flex($justify: center, $align: center);
   background-color: var(--Surface-Lightblue, #f9fafb);
   border-radius: 0.375rem 0 0 0.375rem;
-  min-width: 0.5rem;
+  min-width: 3rem;
   height: 3rem;
 }
 
