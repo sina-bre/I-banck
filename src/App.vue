@@ -1,12 +1,9 @@
 <script setup>
-import InformationWrapper from './components/cards/InformationWrapper.vue';
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <div>
-    <information-wrapper />
-  </div>
-  <h2>{{ myValue }}</h2>
+  <RouterView />
 </template>
 
 <style scoped lang="scss"></style>

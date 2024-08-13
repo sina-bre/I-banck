@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import { useField, useForm, Field, ErrorMessage } from 'vee-validate';
+import { useField, Field, ErrorMessage } from 'vee-validate';
 
 const props = defineProps({
   name: {

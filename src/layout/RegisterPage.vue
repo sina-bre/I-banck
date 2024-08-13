@@ -1,3 +1,7 @@
+<script setup>
+import { RouterView } from 'vue-router';
+</script>
+
 <template>
   <main class="page-container">
     <div class="page-container__background-image"></div>
@@ -5,14 +9,12 @@
       <div class="layout__content content">
         <div class="content__image"></div>
         <div class="content__login-form login-form">
-          <slot></slot>
+          <RouterView />
         </div>
       </div>
     </div>
   </main>
 </template>
-
-<script setup></script>
 
 <style scoped lang="scss">
 .page-container {
