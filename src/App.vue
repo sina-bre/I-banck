@@ -1,12 +1,7 @@
-<script setup>
-import InformationWrapper from './components/cards/InformationWrapper.vue';
-</script>
+<script setup></script>
 
 <template>
-  <div>
-    <information-wrapper />
-  </div>
-  <h2>{{ myValue }}</h2>
+  <div></div>
 </template>
 
 <style scoped lang="scss"></style>
