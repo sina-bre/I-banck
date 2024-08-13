@@ -51,8 +51,11 @@ const computedInputContainerClass = computed(() =>
 
 <template>
   <div class="input-wrapper" :style="{ width: props.width }">
-    .label-container
-    <label v-if="label" :for="inputId" class="label" :class="labelDynamicClass">{{ label }}</label>
+    <div class="label-container">
+      <label v-if="label" :for="inputId" class="label" :class="labelDynamicClass">{{
+        label
+      }}</label>
+    </div>
     <slot name="before-start"></slot>
     <div :class="computedInputContainerClass" class="input-container">
       <div class="after-start">
