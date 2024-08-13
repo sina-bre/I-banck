@@ -19,7 +19,9 @@ const icons = {
   notification: () => importIcon('IconNotification'),
   profile: () => importIcon('IconProfile'),
   search: () => importIcon('IconSearch'),
-  logo: () => importIcon('IconLogo')
+  logo: () => importIcon('IconLogo'),
+  info: () => importIcon('IconInfo'),
+  check: () => importIcon('IconCheck')
 };
 
 export default icons;
