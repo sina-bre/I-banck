@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue';
-import { Form } from 'vee-validate';
+import { ref, computed } from 'vue';
+import { useForm } from 'vee-validate';
 import loginSchema from '@/helpers/validation/loginSchema.js';
 import CustomButton from '@/components/global/CustomButton.vue';
 import TextInput from '@/components/global/TextInput.vue';
@@ -11,15 +11,26 @@ const passwordInputType = ref('password');
 
 const toggleVisibility = () => {
   hidePassword.value = !hidePassword.value;
-  console.log();
-  passwordInputType.value === 'text'
-    ? (passwordInputType.value = 'password')
-    : (passwordInputType.value = 'text');
+  passwordInputType.value = passwordInputType.value === 'text' ? 'password' : 'text';
 };
+
+const { handleSubmit, errors } = useForm({
+  validationSchema: loginSchema
+});
+
+const handleForm = () => {
+  console.log(Object.keys(errors.value).length > 0);
+};
+
+const onSubmit = handleSubmit((formValues) => {
+  console.log('Form Submitted:', formValues);
+});
+
+const computedDisableButton = computed(() => Object.keys(errors.value).length > 0);
 </script>
 
 <template>
-  <Form :validation-schema="loginSchema" class="login-form">
+  <form @submit="onSubmit" class="login-form" @input="handleForm">
     <div class="login-form__input-group input-group">
       <TextInput
         name="phoneNumber"
@@ -57,8 +68,8 @@ const toggleVisibility = () => {
         </template>
       </TextInput>
     </div>
-    <CustomButton width="22.125rem" />
-  </Form>
+    <CustomButton width="22.125rem" type="submit" :disabled="computedDisableButton" />
+  </form>
 </template>
 
 <style scoped lang="scss">
@@ -67,6 +78,7 @@ const toggleVisibility = () => {
   gap: 2rem;
   margin-top: 6.47rem;
 }
+
 .input-group {
   @include mixins.flex($dir: column);
   align-self: stretch;

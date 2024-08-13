@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import { useField, Field, ErrorMessage } from 'vee-validate';
+import { useField } from 'vee-validate';
 
 const props = defineProps({
   width: {
@@ -29,11 +29,11 @@ const props = defineProps({
   },
   type: {
     type: String,
-    default: ''
+    default: 'text'
   },
   as: {
     type: String,
-    default: ''
+    default: 'input'
   },
   rules: {
     type: Object,
@@ -41,39 +41,38 @@ const props = defineProps({
   }
 });
 
-const { value } = useField(props.name);
+const { value, errorMessage, meta } = useField(props.name, props.rules);
 
 const inputId = computed(() => props.name);
 const computedInputContainerClass = computed(() =>
-  value.value ? 'input-container-class' : 'input-container-class'
+  meta.touched || meta.dirty
+    ? meta.valid
+      ? 'input-container-class'
+      : 'input-container-class--error'
+    : 'input-container-class'
 );
 </script>
 
 <template>
   <div class="input-wrapper" :style="{ width: props.width }">
     <div class="label-container">
-      <label v-if="label" :for="inputId" class="label" :class="labelDynamicClass">{{
-        label
-      }}</label>
+      <label v-if="props.label" :for="inputId" class="label" :class="props.labelDynamicClass">
+        {{ props.label }}
+      </label>
     </div>
     <slot name="before-start"></slot>
     <div :class="computedInputContainerClass" class="input-container">
       <div class="after-start">
         <slot name="after-start"></slot>
       </div>
-      <Field
-        :validate-on-input="true"
-        :validateOnBlur="false"
-        :validateOnChange="false"
+      <input
         :id="inputId"
-        :name="name"
-        :type="type"
-        :as="as"
-        :rules="rules"
-        :placeholder="placeholder"
-        class="input"
+        :name="props.name"
+        :type="props.type"
+        :placeholder="props.placeholder"
         :style="{ height: props.height }"
         v-model="value"
+        class="input"
       />
       <div class="before-end">
         <slot name="before-end"></slot>
@@ -81,7 +80,7 @@ const computedInputContainerClass = computed(() =>
     </div>
     <slot name="after-end"></slot>
     <div class="error-container">
-      <ErrorMessage :name="name" class="error-class" as="span" />
+      <span class="error-class">{{ errorMessage }}</span>
     </div>
   </div>
 </template>
@@ -96,11 +95,13 @@ const computedInputContainerClass = computed(() =>
   @include mixins.text(1rem, 400);
   color: var(--Text-Title, #3c4351);
 }
+
 .input {
   font-family: 'Peyda';
   background: var(--Surface-Lightblue, #f9fafb);
   width: 100%;
 }
+
 .input::placeholder {
   @include mixins.text(0.875rem, 400);
   color: var(--black-100, #c3c5c9);
@@ -120,10 +121,14 @@ const computedInputContainerClass = computed(() =>
 .input-wrapper:focus-within .input-container-class--error {
   border-color: var(--fail-500, #eb482b);
 }
+.input-container-class--error {
+  border-color: var(--fail-500, #eb482b);
+}
 
 .label {
   font-weight: 600;
 }
+
 .after-start {
   @include mixins.flex($justify: center, $align: center);
   background-color: var(--Surface-Lightblue, #f9fafb);
@@ -131,6 +136,7 @@ const computedInputContainerClass = computed(() =>
   min-width: 0.5rem;
   height: 3rem;
 }
+
 .before-end {
   @include mixins.flex($justify: center, $align: center);
   background-color: var(--Surface-Lightblue, #f9fafb);
