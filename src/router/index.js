@@ -7,6 +7,11 @@ const router = createRouter({
       path: '/auth',
       component: () => import('../layout/RegisterPage.vue'),
       children: [{ path: 'login', component: () => import('../views/LoginView.vue') }]
+    },
+    {
+      path: '/info',
+      component: () => import('../layout/InformationLayout.vue')
+      // children: [{ path: 'personal-info', component: () => import('') }]
     }
   ]
 });
