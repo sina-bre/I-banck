@@ -36,6 +36,7 @@ defineProps({
   height: 5.75rem;
   gap: 1rem;
   color: var(--primary-500);
+  margin-top: 5.22rem;
 
   &__logo {
     @include mixins.box(6rem, 6rem);

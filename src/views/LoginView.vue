@@ -1,12 +1,16 @@
-<template>
-  <RegisterPage>
-    <loginForm></loginForm>
-  </RegisterPage>
-</template>
-
 <script setup>
-import RegisterPage from '@/layout/RegisterPage.vue';
-import loginForm from '@/components/features/auth/loginForm.vue';
+import HeadingLogo from '@/components/features/auth/HeadingLogo.vue';
+import LoginForm from '@/components/features/auth/LoginForm.vue';
 </script>
 
-<style lang="scss" scoped></style>
+<template>
+  <HeadingLogo />
+  <LoginForm />
+  <footer class="login-form__footer footer"><span>پشتیبانی:</span><span>۰۲۱-۱۲۳۴۵۶۷۸</span></footer>
+</template>
+
+<style scoped lang="scss">
+.footer {
+  margin-top: 14.31rem;
+}
+</style>

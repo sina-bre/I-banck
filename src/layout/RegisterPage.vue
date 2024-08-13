@@ -1,18 +1,20 @@
+<script setup>
+import { RouterView } from 'vue-router';
+</script>
+
 <template>
   <main class="page-container">
     <div class="page-container__background-image"></div>
     <div class="page-container__layout layout">
       <div class="layout__content content">
         <div class="content__image"></div>
-        <div class="content__login-form login-form">
-          <slot></slot>
+        <div class="content__login-layout login-layout">
+          <RouterView />
         </div>
       </div>
     </div>
   </main>
 </template>
-
-<script setup></script>
 
 <style scoped lang="scss">
 .page-container {
@@ -54,16 +56,15 @@
     @include mixins.cover-background;
   }
 
-  &__login-form {
-    margin-top: 5.22rem;
+  &__login-layout {
     align-self: stretch;
   }
 }
 
-.login-form {
+.login-layout {
   width: 37.5rem;
-  @include mixins.flex($justify: space-between, $align: center, $dir: column);
-  gap: 6.47rem;
+  @include mixins.flex($justify: center, $align: center, $dir: column);
+  /* gap: 6.47rem; */
 
   &__footer {
     color: var(--Text-Title);
