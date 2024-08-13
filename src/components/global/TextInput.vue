@@ -3,6 +3,14 @@ import { computed } from 'vue';
 import { useField, Field, ErrorMessage } from 'vee-validate';
 
 const props = defineProps({
+  width: {
+    type: String,
+    default: '100%'
+  },
+  height: {
+    type: String,
+    default: '3rem'
+  },
   name: {
     type: String,
     required: true
@@ -21,7 +29,7 @@ const props = defineProps({
   },
   type: {
     type: String,
-    default: 'text'
+    default: ''
   },
   rules: {
     type: Object,
@@ -33,12 +41,12 @@ const { value } = useField(props.name);
 
 const inputId = computed(() => props.name);
 const computedInputContainerClass = computed(() =>
-  value.value ? 'input-container-class' : 'input-container-class--error'
+  value.value ? 'input-container-class' : 'input-container-class'
 );
 </script>
 
 <template>
-  <div class="input-wrapper">
+  <div class="input-wrapper" :style="{ width: props.width }">
     <label v-if="label" :for="inputId" class="label" :class="labelDynamicClass">{{ label }}</label>
     <slot name="before-start"></slot>
     <div :class="computedInputContainerClass" class="input-container">
@@ -55,15 +63,17 @@ const computedInputContainerClass = computed(() =>
         :rules="rules"
         :placeholder="placeholder"
         class="input"
+        :style="{ height: props.height }"
         v-model="value"
-        @input="handleInput"
       />
       <div class="before-end">
         <slot name="before-end"></slot>
       </div>
     </div>
     <slot name="after-end"></slot>
-    <ErrorMessage :name="name" class="error-class" as="span" />
+    <div class="error-container">
+      <ErrorMessage :name="name" class="error-class" as="span" />
+    </div>
   </div>
 </template>
 
@@ -79,8 +89,8 @@ const computedInputContainerClass = computed(() =>
 }
 .input {
   font-family: 'Peyda';
-  height: 3rem;
   background: var(--Surface-Lightblue, #f9fafb);
+  width: 100%;
 }
 .input::placeholder {
   @include mixins.text(0.875rem, 400);
@@ -91,6 +101,7 @@ const computedInputContainerClass = computed(() =>
   @include mixins.flex($justify: flex-start);
   border-radius: 0.375rem;
   border: 2px solid var(--Surface-Lightblue, #f9fafb);
+  align-self: stretch;
 }
 
 .input-wrapper:focus-within .input-container-class {
@@ -122,6 +133,11 @@ const computedInputContainerClass = computed(() =>
 .error-class {
   color: var(--fail-500, #eb482b);
   @include mixins.text(0.75rem, 400);
+}
+
+.error-container {
+  height: 1rem;
+  @include mixins.flex($align: center);
 }
 
 .input-with-icon {
