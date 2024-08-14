@@ -21,7 +21,10 @@ const icons = {
   search: () => importIcon('IconSearch'),
   logo: () => importIcon('IconLogo'),
   info: () => importIcon('IconInfo'),
-  check: () => importIcon('IconCheck')
+  check: () => importIcon('IconCheck'),
+  upload: () => importIcon('IconUploadBox'),
+  edit: () => importIcon('IconEdit'),
+  trash: () => importIcon('IconTrash')
 };
 
 export default icons;
