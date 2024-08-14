@@ -10,8 +10,10 @@ const router = createRouter({
     },
     {
       path: '/info',
-      component: () => import('../layout/InformationLayout.vue')
-      // children: [{ path: 'personal-info', component: () => import('') }]
+      component: () => import('../layout/InformationLayout.vue'),
+      children: [
+        { path: 'personal-info', component: () => import('../components/cards/FileUploader.vue') }
+      ]
     }
   ]
 });
