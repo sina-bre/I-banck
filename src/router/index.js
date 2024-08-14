@@ -12,7 +12,10 @@ const router = createRouter({
       path: '/info',
       component: () => import('../layout/InformationLayout.vue'),
       children: [
-        { path: 'personal-info', component: () => import('../components/cards/FileUploader.vue') }
+        {
+          path: 'personal-info',
+          component: () => import('../components/features/information/DepositAccountForm.vue')
+        }
       ]
     }
   ]

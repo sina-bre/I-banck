@@ -1,17 +1,9 @@
 <script setup>
-import CustomButton from '../global/CustomButton.vue';
+import { RouterView } from 'vue-router';
 defineProps({
   title: {
     type: String,
     default: 'اطلاعات فردی'
-  },
-  backBtn: {
-    type: String,
-    default: 'قبلی'
-  },
-  nextBtn: {
-    type: String,
-    default: 'افتتاح حساب'
   }
 });
 </script>
@@ -25,22 +17,7 @@ defineProps({
         </div>
         <div class="information-card__divider"></div>
         <div class="information-card__content">
-          <!-- slot content here -->
-          <slot></slot>
-        </div>
-        <div class="information-card__actions">
-          <CustomButton
-            :text="backBtn"
-            color="var(--Text-Title)"
-            bgColor="var(--primary-50)"
-            width="13rem"
-          />
-          <CustomButton
-            :text="nextBtn"
-            color="var(--Text-On-Primary)"
-            bgColor="var(--primary-500)"
-            width="13rem"
-          />
+          <RouterView />
         </div>
       </div>
     </section>

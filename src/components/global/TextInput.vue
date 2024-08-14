@@ -128,6 +128,10 @@ const computedInputContainerClass = computed(() =>
 .label {
   font-weight: 600;
 }
+.information-label {
+  @include mixins.text(1rem, 400);
+  color: var(--Text-Title);
+}
 
 .after-start {
   @include mixins.flex($justify: center, $align: center);
