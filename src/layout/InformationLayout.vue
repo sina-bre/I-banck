@@ -18,7 +18,7 @@ const title = computed(() => {
 </script>
 <template>
   <main>
-    <TheHeader userPhone="09157282736" />
+    <TheHeader />
     <InformationWrapper :title="title" />
   </main>
 </template>
