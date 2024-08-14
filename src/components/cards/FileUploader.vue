@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import IconLoader from '../shared/IconLoader.vue';
-import DropdownBox from '../global/DropdownBox.vue';
+import PopoverBox from '../global/PopoverBox.vue';
 import { onMounted } from 'vue';
 import { onUnmounted } from 'vue';
 
@@ -33,6 +33,14 @@ const iconClicked = () => {
 
 // functions of the items
 
+function emitClicked(action) {
+  if (action === 'edit') {
+    editImg();
+  } else {
+    removeImg();
+  }
+}
+
 const removeImg = () => {
   imageSrc.value = null;
 };
@@ -63,13 +71,13 @@ const boxItems = ref([
     title: 'ویرایش',
     icon: 'edit',
     color: 'var(--black-500)',
-    action: editImg
+    action: 'edit'
   },
   {
     title: 'حذف',
     icon: 'trash',
     color: 'var(--fail-500)',
-    action: removeImg
+    action: 'remove'
   }
 ]);
 </script>
@@ -111,7 +119,8 @@ const boxItems = ref([
       <div class="option-box__front-icon" v-if="imageSrc" @click="iconClicked">
         <IconLoader icon="more" width="1.25rem" height="1.25rem" color="var(--Gray)" />
 
-        <DropdownBox class="popover" v-if="showPopover" :items="boxItems"> </DropdownBox>
+        <PopoverBox class="popover" v-if="showPopover" :items="boxItems" @emitClicked="emitClicked">
+        </PopoverBox>
       </div>
     </div>
   </section>
