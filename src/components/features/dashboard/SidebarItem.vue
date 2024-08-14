@@ -37,23 +37,21 @@ const props = defineProps({
   }
 });
 
-const computedActiveClass = computed(() => (props.isActive ? 'item--active' : ''));
-const computedActiveIconColor = computed(() =>
-  props.isActive ? props.activeColor : props.iconColor
-);
+const emit = defineEmits(['toggleActive']);
+
+const toggle = () => {
+  emit('toggleActive');
+};
+
+const computedActiveClass = computed(() => (props.isActive ? props.itemClass + '--active' : ''));
 </script>
 
 <template>
-  <li :class="itemClass">
+  <li :class="`${itemClass} ${computedActiveClass}`" @click="toggle">
     <div class="item__icon">
-      <IconLoader
-        :icon="icon"
-        :width="iconWidth"
-        :height="iconHeight"
-        :color="computedActiveIconColor"
-      />
+      <IconLoader :icon="icon" :width="iconWidth" :height="iconHeight" color="currentColor" />
     </div>
-    <span class="item__text" :class="computedActiveClass">{{ text }}</span>
+    <span class="item__text">{{ text }}</span>
   </li>
 </template>
 
@@ -71,7 +69,7 @@ const computedActiveIconColor = computed(() =>
 
   &:hover {
     border-radius: 0.375rem;
-    background: var(--Surface-Lightblue);
+    background-color: var(--Surface-Lightblue);
     .item__text,
     .item__icon {
       font-weight: 700;
@@ -81,7 +79,7 @@ const computedActiveIconColor = computed(() =>
 
   &--active {
     border-radius: 0.375rem;
-    background: var(--Surface-Lightblue);
+    background-color: var(--Surface-Lightblue);
     .item__text,
     .item__icon {
       font-weight: 700;
