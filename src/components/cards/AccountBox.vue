@@ -2,8 +2,9 @@
 import { ref, computed } from 'vue';
 import { convertToPersianNumber } from '@/utilities/convertToPersianNumber';
 import { insertComma } from '@/utilities/insertComma';
+import IconLoader from '../shared/IconLoader.vue';
 
-const showDropdown = ref(false);
+const showPopover = ref(false);
 
 const props = defineProps({
   accountNumber: {
@@ -36,12 +37,11 @@ const slicedParts = computed(() => {
           {{ insertComma(convertToPersianNumber(accountAmount)) }}
         </p>
       </div>
-      <div class="account__heading-right">
-        <img src="../../assets/icons/more.svg" alt="" class="account__heading-right-icon" />
+      <div class="account__heading-right" @click="iconClicked">
+        <IconLoader icon="more" width="1.25rem" height="1.25rem" color="var(--Gray)" />
 
-        <div v-if="showDropdown">
-          <!-- add dropdown here  -->
-        </div>
+        <PopoverBox class="popover" v-if="showPopover" :items="boxItems" @emitClicked="emitClicked">
+        </PopoverBox>
       </div>
     </div>
     <div class="account__number">
@@ -74,6 +74,7 @@ const slicedParts = computed(() => {
 
     &-right {
       position: relative;
+      cursor: pointer;
     }
   }
   &-left {
@@ -104,9 +105,6 @@ const slicedParts = computed(() => {
   }
 }
 
-.account__heading-right-icon {
-  cursor: pointer;
-}
 .account__heading-right-box {
   position: absolute;
   right: -13rem;
@@ -115,11 +113,17 @@ const slicedParts = computed(() => {
 }
 
 .account__heading-right-icon:active ~ .account__heading-right-box {
-  animation: dropdown 0.5s ease-out;
+  animation: Popover 0.5s ease-out;
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
 }
-@keyframes dropdown {
+
+.popover {
+  position: absolute;
+  right: 100%;
+  top: 100%;
+}
+@keyframes Popover {
   from {
     right: -13rem;
   }

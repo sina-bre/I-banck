@@ -1,5 +1,6 @@
 <script setup>
 import IconLoader from '../shared/IconLoader.vue';
+
 defineProps({
   items: {
     type: Array,
@@ -8,20 +9,20 @@ defineProps({
 });
 </script>
 <template>
-  <div class="dropdown">
+  <div class="popover">
     <div v-for="(item, index) in items" :key="index">
-      <span class="dropdown__item" @click="item.action">
+      <span class="popover__item" @click="$emit('emitClicked', item.action)">
         <IconLoader :icon="item.icon" :color="item.color" width="1.25rem" height="1.25rem" />
         <p :style="{ color: item.color }">
           {{ item.title }}
         </p>
       </span>
-      <div v-if="index !== items.length - 1" class="dropdown__divider"></div>
+      <div v-if="index !== items.length - 1" class="popover__divider"></div>
     </div>
   </div>
 </template>
 <style scoped lang="scss">
-.dropdown {
+.popover {
   @include mixins.flex(flex-start, flex-start, column);
   background-color: var(--Surface);
   color: var(--Text-Title);

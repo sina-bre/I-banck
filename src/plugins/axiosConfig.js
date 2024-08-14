@@ -31,7 +31,9 @@ const createAxiosInstance = (baseURL) => {
   );
 
   instance.interceptors.response.use(
-    (response) => response.data,
+    (response) => {
+      response.data;
+    },
     (error) => {
       console.error('Response Error:', error.response ? error.response.data : error.message);
       return Promise.reject(error);

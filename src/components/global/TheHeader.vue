@@ -1,13 +1,16 @@
 <script setup>
 import IconLoader from '../shared/IconLoader.vue';
+import { useUserStore } from '@/stores/user';
+import { ref } from 'vue';
+
+const userStore = useUserStore();
+
+const userPhone = ref(userStore.phoneNumber);
+
 defineProps({
   title: {
     type: String,
     default: 'پارت بانک'
-  },
-  userPhone: {
-    type: String,
-    default: '09157724047'
   },
   userImg: {
     type: String,
@@ -31,7 +34,7 @@ defineProps({
       <div class="user-information__avatar">
         <img src="@/assets/images/user.svg" alt="" />
       </div>
-      <div class="user-information__phone">{{ userPhone }}</div>
+      <div class="user-information__phone">{{ userPhone ? userPhone : '-' }}</div>
       <div class="user-information__drop">
         <IconLoader color="var(--black-500)" icon="angleDown" />
       </div>
