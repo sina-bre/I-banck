@@ -1,12 +1,20 @@
 <script setup>
 import FileUploader from '@/components/cards/FileUploader.vue';
 import CustomButton from '@/components/global/CustomButton.vue';
+import router from '@/router';
+
+const goPrevPage = () => {
+  router.push('/info/personal-info');
+};
+const goNextPage = () => {
+  router.push('/info/confirm-info');
+};
 </script>
 <template>
   <section class="uploade-img">
     <div class="uploade-img__pickers">
-      <FileUploader title="تصویر روی کارت ملی"></FileUploader>
-      <FileUploader title="تصویر پشت کارت ملی"></FileUploader>
+      <FileUploader title="تصویر روی کارت ملی" id="front"></FileUploader>
+      <FileUploader title="تصویر پشت کارت ملی" id="back"></FileUploader>
     </div>
     <div class="uploade-img__actions">
       <CustomButton

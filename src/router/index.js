@@ -19,6 +19,10 @@ const router = createRouter({
         {
           path: 'upload-img',
           component: () => import('../components/features/information/UploadImage.vue')
+        },
+        {
+          path: 'confirm-info',
+          component: () => import('../components/features/information/ConfirmInformation.vue')
         }
       ]
     },

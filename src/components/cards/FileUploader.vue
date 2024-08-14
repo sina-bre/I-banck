@@ -2,19 +2,25 @@
 import { ref } from 'vue';
 import IconLoader from '../shared/IconLoader.vue';
 import PopoverBox from '../global/PopoverBox.vue';
-import { onMounted } from 'vue';
+import { onMounted, computed } from 'vue';
 import { onUnmounted } from 'vue';
 
-defineProps({
+const props = defineProps({
   title: {
     type: String,
     default: 'تصویر روی کارت ملی'
+  },
+  id: {
+    type: String,
+    default: 'front'
   }
 });
 
 const imageSrc = ref(null);
 const showPopover = ref(false);
 const fileInputRef = ref(null);
+
+const inputId = computed(() => `national-card-${props.id}`);
 
 const onFileChange = (event) => {
   const file = event.target.files[0];
@@ -83,15 +89,11 @@ const boxItems = ref([
 </script>
 <template>
   <section class="form-image-uploader__national-card-section national-card-section">
-    <label
-      class="national-card-section__upload-box upload-box"
-      for="national-card-front"
-      id="front-drop-area"
-    >
+    <label class="national-card-section__upload-box upload-box" :for="inputId" id="front-drop-area">
       <input
         type="file"
         accept="image/*"
-        id="national-card-front"
+        :id="inputId"
         hidden
         @change="onFileChange"
         ref="fileInputRef"
@@ -99,7 +101,7 @@ const boxItems = ref([
       <div class="upload-box__view" id="national-card-front-view">
         <template v-if="imageSrc">
           <!-- Image Preview -->
-          <div class="upload-box__view-img"></div>
+          <div class="upload-box__view-img" :style="{ backgroundImage: `url(${imageSrc})` }"></div>
         </template>
         <template v-else>
           <!-- Icon and Text when no image is selected -->
@@ -118,7 +120,6 @@ const boxItems = ref([
       <span class="option-box__text">{{ title }}</span>
       <div class="option-box__front-icon" v-if="imageSrc" @click="iconClicked">
         <IconLoader icon="more" width="1.25rem" height="1.25rem" color="var(--Gray)" />
-
         <PopoverBox class="popover" v-if="showPopover" :items="boxItems" @emitClicked="emitClicked">
         </PopoverBox>
       </div>
@@ -145,10 +146,17 @@ const boxItems = ref([
   border: 1px dashed var(--Line, #e2edff);
   &__view {
     @include mixins.flex(center, center, column);
-    gap: 0.5rem;
     width: 100%;
     height: 100%;
+    gap: 0.5rem;
     @include mixins.cover-background;
+
+    &-img {
+      background-image: v-bind(imageSrc);
+      width: 100%;
+      height: 100%;
+      @include mixins.cover-background;
+    }
   }
   &__text {
     @include mixins.text(0.875rem, 600);

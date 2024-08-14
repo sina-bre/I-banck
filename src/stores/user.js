@@ -19,6 +19,8 @@ export const useUserStore = defineStore(
     const numberOfTransactions = ref(null);
     const transactions = ref(null);
     const phoneNumber = ref(null);
+    const postalCode = ref(null);
+    const address = ref(null);
 
     const login = async (credentials) => {
       try {
@@ -87,6 +89,8 @@ export const useUserStore = defineStore(
       numberOfTransactions,
       transactions,
       phoneNumber,
+      postalCode,
+      address,
       login,
       logout,
       getDepositAccount,

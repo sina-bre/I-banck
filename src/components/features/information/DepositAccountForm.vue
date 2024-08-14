@@ -21,6 +21,10 @@ const router = useRouter();
 const goNextPage = () => {
   router.push('/info/upload-img');
 };
+
+const goPrevPage = () => {
+  router.push('/panel/dashboard');
+};
 </script>
 
 <template>
