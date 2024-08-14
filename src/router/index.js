@@ -15,6 +15,10 @@ const router = createRouter({
         {
           path: 'personal-info',
           component: () => import('../components/features/information/DepositAccountForm.vue')
+        },
+        {
+          path: 'upload-img',
+          component: () => import('../components/features/information/UploadImage.vue')
         }
       ]
     }
