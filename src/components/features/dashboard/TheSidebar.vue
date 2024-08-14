@@ -1,7 +1,9 @@
-<script setup></script>
+<script setup>
+import SidebarItem from './SidebarItem.vue';
+</script>
 
 <template>
-  <nav class="dashboard-container__nav nav">
+  <nav class="nav">
     <section class="nav__info">
       <span class="nav__user-name" id="sidebar-name">محمد جواد رحمانی نسب</span>
       <div class="nav__user-code">
@@ -12,7 +14,14 @@
     <hr class="nav__divider" />
     <section class="nav__items-wrapper">
       <ul>
-        <li class="nav__item nav__item--selected">
+        <SidebarItem icon="dashboard" text="داشبورد" />
+        <SidebarItem icon="account" text="حساب" />
+        <SidebarItem icon="facilities" text="تسهیلات" />
+        <SidebarItem icon="cardOperation" text="عملیات کارت" />
+        <SidebarItem icon="electronicPromissoryNote" text="سفته الکترونیک" />
+        <SidebarItem icon="services" text="خدمات" />
+        <SidebarItem icon="exit" text="خروج" item-class="item--exit" />
+        <!-- <li class="nav__item nav__item--selected">
           <div class="nav__item-icon">
             <img src="../assets/icons/dashboard-blue.svg" alt="" />
           </div>
@@ -53,7 +62,7 @@
             <img src="../assets/icons/exit-red.svg" alt="" />
           </div>
           <span class="nav__item-text">خروج</span>
-        </li>
+        </li> -->
       </ul>
     </section>
   </nav>

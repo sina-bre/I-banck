@@ -24,7 +24,13 @@ const icons = {
   check: () => importIcon('IconCheck'),
   upload: () => importIcon('IconUploadBox'),
   edit: () => importIcon('IconEdit'),
-  trash: () => importIcon('IconTrash')
+  trash: () => importIcon('IconTrash'),
+  dashboard: () => importIcon('IconDashboard'),
+  facilities: () => importIcon('IconFacilities'),
+  cardOperation: () => importIcon('IconCardOperation'),
+  electronicPromissoryNote: () => importIcon('IconElectronicPromissoryNote'),
+  services: () => importIcon('IconServices'),
+  exit: () => importIcon('IconExit')
 };
 
 export default icons;
