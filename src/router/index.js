@@ -21,6 +21,10 @@ const router = createRouter({
           component: () => import('../components/features/information/UploadImage.vue')
         }
       ]
+    },
+    {
+      path: '/panel',
+      component: () => import('../layout/dashboardLayout.vue')
     }
   ]
 });
