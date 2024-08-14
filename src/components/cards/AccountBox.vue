@@ -1,19 +1,20 @@
 <script setup>
-import { ref, computed } from 'vue';
-import { convertToPersianNumber } from '@/utilities/convertToPersianNumber';
-import { insertComma } from '@/utilities/insertComma';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { convertToPersianNumber } from '../..//utilities/convertToPersianNumber.js';
+import { insertComma } from '@/utilities/insertComma.js';
 import IconLoader from '../shared/IconLoader.vue';
+import PopoverBox from '../global/PopoverBox.vue';
 
 const showPopover = ref(false);
 
 const props = defineProps({
   accountNumber: {
     type: String,
-    default: '23424234234334'
+    default: '6280231373193407'
   },
   accountAmount: {
     type: Number,
-    required: true
+    default: 100000
   }
 });
 
@@ -25,6 +26,42 @@ const slicedParts = computed(() => {
     parts.push(props.accountNumber.slice(i, i + partLength.value));
   }
   return parts;
+});
+
+const iconClicked = () => {
+  showPopover.value = !showPopover.value;
+};
+
+// items of the popover box
+const boxItems = ref([
+  {
+    title: 'تغییر حساب متصل',
+    icon: 'cardOperation',
+    color: 'var(--black-100)',
+    action: 'edit'
+  },
+  {
+    title: 'حذف حساب بانکی',
+    icon: 'trash',
+    color: 'var(--fail-500)',
+    action: 'remove'
+  }
+]);
+
+// handle when user click outside
+
+const handleClickOutside = (event) => {
+  if (!event.target.closest('.account__heading-right')) {
+    showPopover.value = false;
+  }
+};
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside);
 });
 </script>
 
@@ -38,7 +75,7 @@ const slicedParts = computed(() => {
         </p>
       </div>
       <div class="account__heading-right" @click="iconClicked">
-        <IconLoader icon="more" width="1.25rem" height="1.25rem" color="var(--Gray)" />
+        <IconLoader icon="more" width="2rem" height="2rem" color="var(--Surface)" />
 
         <PopoverBox class="popover" v-if="showPopover" :items="boxItems" @emitClicked="emitClicked">
         </PopoverBox>
@@ -50,7 +87,6 @@ const slicedParts = computed(() => {
       </div>
     </div>
   </div>
-  ;
 </template>
 
 <style scoped lang="scss">
@@ -105,23 +141,10 @@ const slicedParts = computed(() => {
   }
 }
 
-.account__heading-right-box {
-  position: absolute;
-  right: -13rem;
-  top: 90%;
-  z-index: 5;
-}
-
-.account__heading-right-icon:active ~ .account__heading-right-box {
-  animation: Popover 0.5s ease-out;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-}
-
 .popover {
   position: absolute;
-  right: 100%;
-  top: 100%;
+  right: 50%;
+  top: 80%;
 }
 @keyframes Popover {
   from {

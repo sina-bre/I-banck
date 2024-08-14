@@ -30,7 +30,9 @@ const icons = {
   cardOperation: () => importIcon('IconCardOperation'),
   electronicPromissoryNote: () => importIcon('IconElectronicPromissoryNote'),
   services: () => importIcon('IconServices'),
-  exit: () => importIcon('IconExit')
+  exit: () => importIcon('IconExit'),
+  convertCard: () => importIcon('IconConvertCard'),
+  logout: () => importIcon('IconLogout')
 };
 
 export default icons;

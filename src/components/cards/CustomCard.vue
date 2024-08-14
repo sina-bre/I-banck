@@ -30,7 +30,7 @@ defineProps({
     </div>
     <slot></slot>
     <div class="points__action">
-      <CustomButton :text="btnText" color="var(--Text-Title)" bgColor="var(--Primary-50)">
+      <CustomButton :text="btnText" color="var(--Text-Title)" bgColor="var(--primary-50)">
         <template #btn-icon>
           <slot name="icon"></slot>
         </template>
@@ -55,7 +55,10 @@ defineProps({
     color: var(--Text-Title);
 
     &-action {
+      color: var(--Gray);
       @include mixins.flex(center, center);
+      @include mixins.text(0.875rem, 400);
+      cursor: pointer;
     }
   }
 
