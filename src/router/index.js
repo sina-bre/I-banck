@@ -24,7 +24,13 @@ const router = createRouter({
     },
     {
       path: '/panel',
-      component: () => import('../layout/panelLayout.vue')
+      component: () => import('../layout/panelLayout.vue'),
+      children: [
+        {
+          path: 'dashboard',
+          component: () => import('../components/features/dashboard/DashboardCards.vue')
+        }
+      ]
     },
     // 404 page !!! be careful
     {
