@@ -16,8 +16,10 @@ const onSubmit = handleSubmit((formValues) => {
 
 const computedDisableButton = computed(() => Object.keys(errors.value).length > 0);
 
+const router = useRouter();
+
 const goNextPage = () => {
-  useRouter.router.push('/info/uploade-image');
+  router.push('/info/upload-img');
 };
 </script>
 

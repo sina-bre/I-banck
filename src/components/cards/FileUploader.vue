@@ -5,6 +5,13 @@ import DropdownBox from '../global/DropdownBox.vue';
 import { onMounted } from 'vue';
 import { onUnmounted } from 'vue';
 
+defineProps({
+  title: {
+    type: String,
+    default: 'تصویر روی کارت ملی'
+  }
+});
+
 const imageSrc = ref(null);
 const showPopover = ref(false);
 const fileInputRef = ref(null);
@@ -100,7 +107,7 @@ const boxItems = ref([
       </div>
     </label>
     <div class="national-card-section__option-box option-box">
-      <span class="option-box__text">تصویر روی کارت ملی</span>
+      <span class="option-box__text">{{ title }}</span>
       <div class="option-box__front-icon" v-if="imageSrc" @click="iconClicked">
         <IconLoader icon="more" width="1.25rem" height="1.25rem" color="var(--Gray)" />
 
