@@ -5,7 +5,7 @@ const router = createRouter({
   routes: [
     {
       path: '/auth',
-      component: () => import('../layout/RegisterPage.vue'),
+      component: () => import('../layout/RegisterLayout.vue'),
       children: [{ path: 'login', component: () => import('../views/LoginView.vue') }]
     },
     {
@@ -24,7 +24,7 @@ const router = createRouter({
     },
     {
       path: '/panel',
-      component: () => import('../layout/dashboardLayout.vue')
+      component: () => import('../layout/panelLayout.vue')
     }
   ]
 });
