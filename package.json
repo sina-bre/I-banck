@@ -13,6 +13,7 @@
   "dependencies": {
     "@vee-validate/yup": "^4.13.2",
     "axios": "^1.7.3",
+    "crypto-js": "^4.2.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persist": "^1.0.0",
     "vue": "^3.4.29",

@@ -1,5 +1,5 @@
-import { SecureStorage } from '../helpers/storage/secureStorage.js';
-import { axios } from 'axios';
+import SecureStorage from '../helpers/storage/secureStorage.js';
+import axios from 'axios';
 
 const createAxiosInstance = (baseURL) => {
   const instance = axios.create({
@@ -13,9 +13,8 @@ const createAxiosInstance = (baseURL) => {
   instance.interceptors.request.use(
     async (config) => {
       try {
-        console.log(config);
         const secureLocalStorage = new SecureStorage('encryption-key', 'localStorage');
-        const token = await secureLocalStorage.get('token');
+        const token = secureLocalStorage.getItem('token');
         console.log(token);
         if (token) {
           config.headers['gateway-token'] = token;
