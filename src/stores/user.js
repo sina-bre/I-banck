@@ -2,7 +2,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import authService from '@/services/index.js';
-import { SecureStorage } from '@/helpers/storage/secureStorage.js';
+import SecureStorage from '@/helpers/storage/secureStorage.js';
 
 const secureStorage = new SecureStorage('encryption-key', 'localStorage');
 
@@ -21,7 +21,7 @@ export const useUserStore = defineStore(
 
     const login = async (credentials) => {
       try {
-        const response = await authService.login.post(credentials);
+        const response = await authService.auth.login(credentials);
         token.value = response.token;
         idNumber.value = response.idNumber;
         firstName.value = response.firstName;
@@ -96,17 +96,7 @@ export const useUserStore = defineStore(
   {
     persist: {
       enabled: true,
-      strategies: [
-        {
-          key: 'userStore',
-          storage: {
-            getItem: (key) => secureStorage.get(key),
-            setItem: (key, value) => secureStorage.set(key, value),
-            removeItem: (key) => secureStorage.remove(key),
-            clear: () => secureStorage.clear()
-          }
-        }
-      ]
+      storage: secureStorage
     }
   }
 );

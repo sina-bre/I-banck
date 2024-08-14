@@ -8,7 +8,9 @@ const methods = {
   login: async (params) => {
     try {
       const response = await axiosInstance.post(`${baseURL}/login`, params);
+      console.log(response);
       const { data } = response;
+      console.log(data);
       return data;
     } catch (error) {
       console.error('login Request Error:', error);

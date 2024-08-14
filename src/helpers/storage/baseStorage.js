@@ -4,13 +4,13 @@ class BaseStorage {
       throw new TypeError('Cannot construct BaseStorage instances directly');
     }
   }
-  set(key, value) {
+  setItem(key, value) {
     throw new Error(`Method 'set' must be implemented. ${key} , ${value}`);
   }
-  get(key) {
+  getItem(key) {
     throw new Error(`Method 'get' must be implemented. ${key}`);
   }
-  remove(key) {
+  removeItem(key) {
     throw new Error(`Method 'remove' must be implemented. ${key}`);
   }
   clear() {

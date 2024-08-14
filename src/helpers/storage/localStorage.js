@@ -1,16 +1,18 @@
-import { BaseStorage } from './baseStorage.js';
+import BaseStorage from './baseStorage.js';
 
-export class LocalStorage extends BaseStorage {
-  set(key, value) {
+class LocalStorage extends BaseStorage {
+  setItem(key, value) {
     localStorage.setItem(key, value);
   }
-  get(key) {
+  getItem(key) {
     return localStorage.getItem(key);
   }
-  remove(key) {
+  removeItem(key) {
     localStorage.removeItem(key);
   }
   clear() {
     localStorage.clear();
   }
 }
+
+export default LocalStorage;

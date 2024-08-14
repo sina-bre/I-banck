@@ -5,16 +5,18 @@ import loginSchema from '@/helpers/validation/loginSchema.js';
 import CustomButton from '@/components/global/CustomButton.vue';
 import TextInput from '@/components/global/TextInput.vue';
 import IconLoader from '@/components/shared/IconLoader.vue';
+import { useUserStore } from '@/stores/user.js';
 
 const hidePassword = ref(false);
 const passwordInputType = ref('password');
+const userStore = useUserStore(); // Use the Pinia store
 
 const toggleVisibility = () => {
   hidePassword.value = !hidePassword.value;
   passwordInputType.value = passwordInputType.value === 'text' ? 'password' : 'text';
 };
 
-const { handleSubmit, errors } = useForm({
+const { handleSubmit, errors, values } = useForm({
   validationSchema: loginSchema
 });
 
@@ -22,21 +24,27 @@ const handleForm = () => {
   console.log(Object.keys(errors.value).length > 0);
 };
 
-const onSubmit = handleSubmit((formValues) => {
-  console.log('Form Submitted:', formValues);
+const onSubmit = handleSubmit(async (formValues) => {
+  try {
+    await userStore.login(formValues); // Call the login action
+    console.log('Form Submitted:', formValues);
+  } catch (error) {
+    console.error('Login failed:', error);
+  }
 });
 
 const computedDisableButton = computed(() => Object.keys(errors.value).length > 0);
 </script>
 
 <template>
-  <form @submit="onSubmit" class="login-form" @input="handleForm">
+  <form @submit.prevent="onSubmit" class="login-form" @input="handleForm">
     <div class="login-form__input-group input-group">
       <TextInput
         name="phoneNumber"
         label="شماره همراه"
         placeholder="مثلا ۰۹۱۲۳۴۵۶۷۸۹"
         type="text"
+        v-model="values.phoneNumber"
         width="22.125rem"
       />
       <TextInput
@@ -44,6 +52,7 @@ const computedDisableButton = computed(() => Object.keys(errors.value).length > 
         label="رمز عبور"
         placeholder="رمز عبور"
         :type="passwordInputType"
+        v-model="values.password"
         width="22.125rem"
       >
         <template v-slot:before-end>
