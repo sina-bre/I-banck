@@ -1,28 +1,20 @@
 <script setup>
-import { ref } from 'vue';
 import IconLoader from '../shared/IconLoader.vue';
+import { ref } from 'vue';
 
-const props = defineProps({
-  message: {
-    type: String,
-    required: true
-  },
-  type: {
-    type: String,
-    required: true
-  },
-  duration: { type: Number, default: 3000 }
-});
-
-const visible = ref();
+const text = ref('');
+const type = ref('');
+const visible = ref(false);
 const show = ref(false);
 
-const showToast = () => {
+const showToast = (state, message, duration = 3000) => {
+  text.value = message;
+  type.value = state;
   visible.value = true;
   show.value = true;
   setTimeout(() => {
     hideToast();
-  }, props.duration);
+  }, duration);
 };
 
 const hideToast = () => {
@@ -31,7 +23,6 @@ const hideToast = () => {
     show.value = false;
   }, 700);
 };
-
 defineExpose({ showToast });
 </script>
 
@@ -49,7 +40,7 @@ defineExpose({ showToast });
         color="black"
       />
       <IconLoader v-else icon="check" width="1.5rem" height="1.5rem" color="black" />
-      <p>{{ message }}</p>
+      <p>{{ text }}</p>
     </div>
   </div>
 </template>

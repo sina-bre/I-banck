@@ -20,10 +20,6 @@ const { handleSubmit, errors, values } = useForm({
   validationSchema: loginSchema
 });
 
-const handleForm = () => {
-  console.log(Object.keys(errors.value).length > 0);
-};
-
 const onSubmit = handleSubmit(async (formValues) => {
   try {
     await userStore.login(formValues); // Call the login action
@@ -37,7 +33,7 @@ const computedDisableButton = computed(() => Object.keys(errors.value).length > 
 </script>
 
 <template>
-  <form @submit.prevent="onSubmit" class="login-form" @input="handleForm">
+  <form @submit.prevent="onSubmit" class="login-form">
     <div class="login-form__input-group input-group">
       <TextInput
         name="phoneNumber"

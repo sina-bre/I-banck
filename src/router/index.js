@@ -25,6 +25,12 @@ const router = createRouter({
     {
       path: '/panel',
       component: () => import('../layout/panelLayout.vue')
+    },
+    // 404 page !!! be careful
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('../components/features/NotFound.vue')
     }
   ]
 });
