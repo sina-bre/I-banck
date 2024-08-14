@@ -34,7 +34,9 @@ defineProps({
       <div class="user-information__avatar">
         <img src="@/assets/images/user.svg" alt="" />
       </div>
-      <div class="user-information__phone">{{ userPhone ? userPhone : '-' }}</div>
+      <div class="user-information__phone">
+        {{ userPhone ? userPhone : 'شماره ای ثبت نشده' }}
+      </div>
       <div class="user-information__drop">
         <IconLoader color="var(--black-500)" icon="angleDown" />
       </div>
