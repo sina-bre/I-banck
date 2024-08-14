@@ -9,6 +9,7 @@ import { useUserStore } from '@/stores/user.js';
 
 const hidePassword = ref(false);
 const passwordInputType = ref('password');
+
 const userStore = useUserStore(); // Use the Pinia store
 
 const toggleVisibility = () => {
@@ -20,14 +21,10 @@ const { handleSubmit, errors, values } = useForm({
   validationSchema: loginSchema
 });
 
-const handleForm = () => {
-  console.log(Object.keys(errors.value).length > 0);
-};
-
 const onSubmit = handleSubmit(async (formValues) => {
   try {
     await userStore.login(formValues); // Call the login action
-    console.log('Form Submitted:', formValues);
+    userStore.phoneNumber = formValues.phoneNumber;
   } catch (error) {
     console.error('Login failed:', error);
   }
