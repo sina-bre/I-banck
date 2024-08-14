@@ -1,6 +1,6 @@
 import createAxiosInstance from '@/plugins/axiosConfig.js';
 
-const baseAPI = 'auth/login';
+const baseAPI = 'deposit-account';
 
 const axiosInstance = createAxiosInstance();
 
