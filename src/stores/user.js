@@ -13,6 +13,11 @@ export const useUserStore = defineStore(
     const idNumber = ref(null);
     const firstName = ref(null);
     const lastName = ref(null);
+    const depositAccountStatus = ref(null);
+    const depositAccountData = ref(null);
+    const id = ref(null);
+    const numberOfTransactions = ref(null);
+    const transactions = ref(null);
 
     const login = async (credentials) => {
       try {
@@ -33,13 +38,59 @@ export const useUserStore = defineStore(
       lastName.value = null;
     };
 
+    const getDepositAccount = async () => {
+      try {
+        const response = await authService.depositAccount.get();
+        depositAccountStatus.value = response.status;
+        depositAccountData.value = response.result;
+      } catch (error) {
+        console.error('Get deposit account failed:', error);
+      }
+    };
+
+    const createDepositAccount = async (credentials) => {
+      try {
+        const response = await authService.depositAccount.create(credentials);
+        id.value = response.id;
+      } catch (error) {
+        console.error('Create deposit account failed:', error);
+      }
+    };
+
+    const deleteDepositAccount = async (slug) => {
+      try {
+        const response = await authService.depositAccount.delete(slug);
+        console.log(response);
+      } catch (error) {
+        console.error('Delete deposit account failed:', error);
+      }
+    };
+
+    const getTransactions = async () => {
+      try {
+        const response = await authService.transactions.get();
+        numberOfTransactions.value = response.count;
+        transactions.value = response.transactions;
+      } catch (error) {
+        console.error('Get transactions failed:', error);
+      }
+    };
+
     return {
       token,
       idNumber,
       firstName,
       lastName,
+      depositAccountStatus,
+      depositAccountData,
+      numberOfTransactions,
+      transactions,
       login,
-      logout
+      logout,
+      getDepositAccount,
+      createDepositAccount,
+      deleteDepositAccount,
+      getTransactions
     };
   },
   {

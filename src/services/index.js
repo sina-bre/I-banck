@@ -1,11 +1,11 @@
-import depositAccount from './depositAccount';
-import login from './login';
-import transaction from './transaction';
+import depositAccount from './depositAccount.js';
+import login from './auth.js';
+import transactions from './transactions.js';
 
 export const services = {
   depositAccount,
   login,
-  transaction
+  transactions
 };
 
 export default services;
