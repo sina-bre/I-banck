@@ -5,9 +5,7 @@ import InformationWrapper from '@/components/cards/InformationWrapper.vue';
 <template>
   <main>
     <TheHeader userPhone="09157282736" />
-    <InformationWrapper>
-      <RouterView />
-    </InformationWrapper>
+    <InformationWrapper />
   </main>
 </template>
 
