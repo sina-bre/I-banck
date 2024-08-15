@@ -1,6 +1,9 @@
 <script setup>
 import TheHeader from '@/components/global/TheHeader.vue';
 import TheSidebar from '@/components/features/dashboard/TheSidebar.vue';
+import { useUserStore } from '@/stores/user';
+
+const userStore = useUserStore();
 </script>
 <template>
   <main>
@@ -10,7 +13,11 @@ import TheSidebar from '@/components/features/dashboard/TheSidebar.vue';
     <div class="dashboard-container">
       <main class="dashboard-container__main">
         <nav>
-          <TheSidebar />
+          <TheSidebar
+            :national-code="userStore.idNumber"
+            :first-name="userStore.firstName"
+            :last-name="userStore.lastName"
+          />
         </nav>
 
         <RouterView />

@@ -13,10 +13,14 @@ const createAxiosInstance = (baseURL) => {
   instance.interceptors.request.use(
     async (config) => {
       try {
-        const secureLocalStorage = new SecureStorage('encryption-key', 'localStorage');
-        const token = secureLocalStorage.getItem('token');
-        if (token) {
-          config.headers['gateway-token'] = token;
+        const secureLocalStorage = new SecureStorage('encryption-key');
+        const data = secureLocalStorage.getItem('user');
+        console.log(data);
+
+        const myData = JSON.parse(data);
+        console.log(myData.token);
+        if (myData) {
+          config.headers['gateway-token'] = myData.token;
         }
       } catch (error) {
         console.error('Error retrieving token from localStorage:', error);

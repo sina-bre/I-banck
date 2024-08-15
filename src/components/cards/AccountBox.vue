@@ -10,11 +10,11 @@ const showPopover = ref(false);
 const props = defineProps({
   accountNumber: {
     type: String,
-    default: '6280231373193407'
+    default: '0000000000000000'
   },
   accountAmount: {
     type: Number,
-    default: 100000
+    default: 0
   }
 });
 
