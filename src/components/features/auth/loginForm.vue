@@ -6,7 +6,6 @@ import CustomButton from '@/components/global/CustomButton.vue';
 import TextInput from '@/components/global/TextInput.vue';
 import IconLoader from '@/components/shared/IconLoader.vue';
 import { useUserStore } from '@/stores/user.js';
-import router from '@/router';
 
 const hidePassword = ref(false);
 const passwordInputType = ref('password');
@@ -26,7 +25,6 @@ const onSubmit = handleSubmit(async (formValues) => {
   try {
     await userStore.login(formValues); // Call the login action
     userStore.phoneNumber = formValues.phoneNumber;
-    router.push('/panel/dashboard');
   } catch (error) {
     console.error('Login failed:', error);
   }
