@@ -1,5 +1,8 @@
 import SecureStorage from '../helpers/storage/secureStorage.js';
 import axios from 'axios';
+import useToast from '@/composables/useToast.js'; // Adjust the path as necessary
+
+const { showToast } = useToast();
 
 const createAxiosInstance = (baseURL) => {
   const instance = axios.create({
@@ -35,9 +38,14 @@ const createAxiosInstance = (baseURL) => {
 
   instance.interceptors.response.use(
     (response) => {
+      if (response.data.message) {
+        showToast('success', response.data.message);
+      }
       return response.data;
     },
     (error) => {
+      showToast('error', error.data?.message?.fa || 'خطای ارتباط با سرور');
+
       console.error('Response Error:', error.response ? error.response.data : error.message);
       return Promise.reject(error);
     }

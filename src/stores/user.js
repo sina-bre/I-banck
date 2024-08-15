@@ -3,6 +3,10 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import authService from '@/services/index.js';
 import SecureStorage from '@/helpers/storage/secureStorage.js';
+import router from '@/router';
+import useToast from '@/composables/useToast.js';
+
+const { showToast } = useToast();
 
 const secureStorage = new SecureStorage('encryption-key', 'localStorage');
 
@@ -25,10 +29,16 @@ export const useUserStore = defineStore(
     const login = async (credentials) => {
       try {
         const response = await authService.auth.login(credentials);
+        if (response) {
+          showToast('success', 'با موفقیت وارد شدید');
+        }
         token.value = response.token;
         idNumber.value = response.idNumber;
         firstName.value = response.firstName;
         lastName.value = response.lastName;
+        setTimeout(() => {
+          router.push('/panel/dashboard');
+        }, 2000);
       } catch (error) {
         console.error('Login failed:', error);
       }
@@ -56,6 +66,8 @@ export const useUserStore = defineStore(
     const createDepositAccount = async (credentials) => {
       try {
         const response = await authService.depositAccount.create(credentials);
+        showToast('success', 'اکانت شما با موفقیت ساخته شد');
+
         id.value = response.id;
       } catch (error) {
         console.error('Create deposit account failed:', error);

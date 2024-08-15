@@ -1,28 +1,9 @@
 <script setup>
 import IconLoader from '../shared/IconLoader.vue';
-import { ref } from 'vue';
+import useToast from '@/composables/useToast.js';
 
-const text = ref('');
-const type = ref('');
-const visible = ref(false);
-const show = ref(false);
+const { text, type, visible, show, showToast } = useToast();
 
-const showToast = (state, message, duration = 3000) => {
-  text.value = message;
-  type.value = state;
-  visible.value = true;
-  show.value = true;
-  setTimeout(() => {
-    hideToast();
-  }, duration);
-};
-
-const hideToast = () => {
-  visible.value = false;
-  setTimeout(() => {
-    show.value = false;
-  }, 700);
-};
 defineExpose({ showToast });
 </script>
 
