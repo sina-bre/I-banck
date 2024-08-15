@@ -2,11 +2,27 @@
 import CustomButton from '@/components/global/CustomButton.vue';
 import { useUserStore } from '@/stores/user';
 import router from '@/router';
+import { ref } from 'vue';
 
 const userStore = useUserStore();
+const submitLoading = ref(false);
 
-const goNextPage = () => {
-  router.push('/panel/dashboard');
+const goNextPage = async () => {
+  try {
+    submitLoading.value = true;
+    const formData = {
+      firstName: userStore.firstName,
+      lastName: userStore.lastName,
+      postalCode: userStore.postalCode,
+      address: userStore.address
+    };
+    await userStore.createDepositAccount(formData);
+    router.push('/panel/dashboard');
+  } catch (error) {
+    console.error('create account failed:', error);
+  } finally {
+    submitLoading.value = false;
+  }
 };
 const goPrevPage = () => {
   router.push('/info/upload-img');
@@ -45,6 +61,7 @@ const goPrevPage = () => {
         color="var(--Text-Title)"
         bgColor="var(--primary-50)"
         width="13rem"
+        :loading="submitLoading"
       />
       <CustomButton
         @click="goNextPage"
@@ -52,6 +69,7 @@ const goPrevPage = () => {
         color="var(--Text-On-Primary)"
         bgColor="var(--primary-500)"
         width="13rem"
+        :loading="submitLoading"
       />
     </div>
   </section>
