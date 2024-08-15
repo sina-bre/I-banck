@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import authService from '@/services/index.js';
 import SecureStorage from '@/helpers/storage/secureStorage.js';
 
-const secureStorage = new SecureStorage('encryption-key');
+const secureStorage = new SecureStorage('encryption-key', 'localStorage');
 
 export const useUserStore = defineStore(
   'user',
