@@ -54,7 +54,6 @@ export class SecureStorage extends BaseStorage {
 
   setItem(key, value) {
     try {
-      console.log('settttttt');
       const encryptedValue = this.encrypt(value);
       if (encryptedValue !== null) {
         this.storage.setItem(key, encryptedValue);

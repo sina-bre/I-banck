@@ -4,8 +4,10 @@ import { convertToPersianNumber } from '../..//utilities/convertToPersianNumber.
 import { insertComma } from '@/utilities/insertComma.js';
 import IconLoader from '../shared/IconLoader.vue';
 import PopoverBox from '../global/PopoverBox.vue';
+import { useUserStore } from '@/stores/user.js';
 
 const showPopover = ref(false);
+const userStore = useUserStore();
 
 const props = defineProps({
   accountNumber: {
@@ -47,6 +49,17 @@ const boxItems = ref([
     action: 'remove'
   }
 ]);
+
+const emitClicked = async (action) => {
+  if (action === 'remove') {
+    try {
+      console.log('idddd', userStore.id);
+      await userStore.deleteDepositAccount(userStore.id);
+    } catch (error) {
+      console.log('delete deposit', error);
+    }
+  }
+};
 
 // handle when user click outside
 

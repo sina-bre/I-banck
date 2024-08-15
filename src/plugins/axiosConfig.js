@@ -18,15 +18,14 @@ const createAxiosInstance = (baseURL) => {
       try {
         const secureLocalStorage = new SecureStorage('encryption-key');
         const data = secureLocalStorage.getItem('user');
-        console.log(data);
 
         const myData = JSON.parse(data);
-        console.log(myData.token);
         if (myData) {
           config.headers['gateway-token'] = myData.token;
         }
       } catch (error) {
         console.error('Error retrieving token from localStorage:', error);
+        return Promise.reject(error);
       }
       return config;
     },
@@ -44,9 +43,10 @@ const createAxiosInstance = (baseURL) => {
       return response.data;
     },
     (error) => {
-      showToast('error', error.data?.message?.fa || 'خطای ارتباط با سرور');
+      // console.log('toast message', error.response.data.data.message.fa);
+      showToast('error', error.response?.data?.data?.message?.fa || 'خطای ارتباط با سرور');
 
-      console.error('Response Error:', error.response ? error.response.data : error.message);
+      // console.error('Response Error:', error.response ? error.response.data : error.message);
       return Promise.reject(error);
     }
   );
