@@ -8,6 +8,7 @@ import { onBeforeMount, ref, computed } from 'vue';
 import { useUserStore } from '@/stores/user.js';
 import { convertToPersianNumber } from '@/utilities/convertToPersianNumber.js';
 import { convertToPersianDate } from '@/utilities/convertToPersianDate';
+import { insertComma } from '@/utilities/insertComma';
 
 const userStore = useUserStore();
 const depositAccountData = ref('');
@@ -38,13 +39,15 @@ const isDepositAccountCreated = computed(
 );
 
 const computedScoreAmount = computed(() =>
-  isDepositAccountCreated.value ? convertToPersianNumber(scoreAmount.value) : 0
+  isDepositAccountCreated.value ? insertComma(convertToPersianNumber(scoreAmount.value)) : 0
 );
 const computedScorePaymentPeriod = computed(() =>
   isDepositAccountCreated.value ? convertToPersianNumber(scorePaymentPeriod.value) : 0
 );
 const computedUpcomingInstalmentAmount = computed(() =>
-  isDepositAccountCreated.value ? convertToPersianNumber(upcomingInstalmentAmount.value) : 0
+  isDepositAccountCreated.value
+    ? insertComma(convertToPersianNumber(upcomingInstalmentAmount.value))
+    : 0
 );
 const computedUpcomingInstalmentDueDate = computed(() =>
   isDepositAccountCreated.value ? convertToPersianDate(upcomingInstalmentDueDate.value) : ''

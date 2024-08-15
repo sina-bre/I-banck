@@ -2,11 +2,20 @@
 import { ref, computed } from 'vue';
 import { convertToPersianNumber } from '@/utilities/convertToPersianNumber';
 import SidebarItem from './SidebarItem.vue';
+import { useUserStore } from '@/stores/user';
 
+const userStore = useUserStore();
 const activeIndex = ref(0);
 
-const toggleActive = (index) => {
+const toggleActive = async (item, index) => {
   activeIndex.value = index;
+  if (item.exit) {
+    try {
+      await userStore.logout();
+    } catch (error) {
+      console.log('error', error);
+    }
+  }
 };
 
 const props = defineProps({
@@ -50,7 +59,7 @@ const computedNationalCode = computed(() => convertToPersianNumber(Number(props.
           :text="item.text"
           :item-class="item.class"
           :isActive="activeIndex === index"
-          @toggleActive="toggleActive(index)"
+          @toggleActive="toggleActive(item, index)"
         />
       </ul>
     </section>
@@ -65,7 +74,7 @@ const items = [
   { icon: 'cardOperation', text: 'عملیات کارت' },
   { icon: 'electronicPromissoryNote', text: 'سفته الکترونیک' },
   { icon: 'services', text: 'خدمات' },
-  { icon: 'exit', text: 'خروج', class: 'item--exit' }
+  { icon: 'exit', text: 'خروج', class: 'item--exit', exit: true }
 ];
 </script>
 

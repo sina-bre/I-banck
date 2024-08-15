@@ -45,10 +45,8 @@ export const useUserStore = defineStore(
     };
 
     const logout = async () => {
-      token.value = null;
-      idNumber.value = null;
-      firstName.value = null;
-      lastName.value = null;
+      secureStorage.clear();
+      router.push('/auth/login');
     };
 
     const getDepositAccount = async () => {
@@ -66,9 +64,9 @@ export const useUserStore = defineStore(
     const createDepositAccount = async (credentials) => {
       try {
         const response = await authService.depositAccount.create(credentials);
+        console.log('create account', response);
         showToast('success', 'اکانت شما با موفقیت ساخته شد');
-
-        id.value = response.id;
+        id.value = response.data.id;
       } catch (error) {
         console.error('Create deposit account failed:', error);
       }
@@ -77,6 +75,8 @@ export const useUserStore = defineStore(
     const deleteDepositAccount = async (slug) => {
       try {
         const response = await authService.depositAccount.delete(slug);
+        depositAccountData.value = null;
+        id.value = null;
         console.log(response);
       } catch (error) {
         console.error('Delete deposit account failed:', error);

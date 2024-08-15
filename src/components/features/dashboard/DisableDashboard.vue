@@ -1,4 +1,11 @@
-<script setup></script>
+<script setup>
+import CustomButton from '@/components/global/CustomButton.vue';
+import router from '@/router';
+
+const createAccount = () => {
+  router.push('/info/personal-info');
+};
+</script>
 
 <template>
   <div class="overlay" id="overlay">
@@ -8,7 +15,13 @@
     <div class="overlay__text">
       <p>برای دسترسی به داشبورد، لطفا ابتدا افتتاح حساب کنید.</p>
     </div>
-    <button class="overlay__btn">افتتاح حساب</button>
+    <CustomButton
+      color="var(--Text-On-Primary)"
+      bgColor="var(--primary-500)"
+      width="13rem"
+      text="افتتاح حساب"
+      @click="createAccount"
+    ></CustomButton>
   </div>
 </template>
 
@@ -42,6 +55,7 @@
     width: 12.5rem;
     height: 3rem;
     color: #fff;
+    cursor: pointer;
   }
 }
 </style>

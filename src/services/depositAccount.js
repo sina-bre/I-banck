@@ -7,7 +7,7 @@ const axiosInstance = createAxiosInstance();
 const methods = {
   get: async () => {
     try {
-      const response = await axiosInstance.get(`/${baseAPI}`);
+      const response = await axiosInstance.get(`${baseAPI}`);
       console.log(response);
       const { data } = response;
       return data;
@@ -28,7 +28,8 @@ const methods = {
 
   delete: async (slug) => {
     try {
-      const response = axiosInstance.delete(`/${baseAPI}/${slug}`);
+      const response = await axiosInstance.delete(`${baseAPI}?id=${slug}`);
+      console.log('reponse delete', response.data);
       const { data } = response;
       return data;
     } catch (error) {
