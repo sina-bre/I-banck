@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { convertToPersianNumber } from '@/utilities/convertToPersianNumber';
 import SidebarItem from './SidebarItem.vue';
 
 const activeIndex = ref(0);
@@ -7,15 +8,36 @@ const activeIndex = ref(0);
 const toggleActive = (index) => {
   activeIndex.value = index;
 };
+
+const props = defineProps({
+  firstName: {
+    type: String,
+    required: true,
+    default: 'محمد جواد'
+  },
+  lastName: {
+    type: String,
+    required: true,
+    default: 'رحمانی نسب'
+  },
+  nationalCode: {
+    type: String,
+    required: true,
+    default: '۰۹۱۲۳۴۵۶۷۸'
+  }
+});
+
+const name = computed(() => props.lastName + ' ' + props.firstName);
+const computedNationalCode = computed(() => convertToPersianNumber(Number(props.nationalCode)));
 </script>
 
 <template>
   <nav class="nav">
     <section class="nav__info">
-      <span class="nav__user-name" id="sidebar-name">محمد جواد رحمانی نسب</span>
+      <span class="nav__user-name" id="sidebar-name"> {{ name }} </span>
       <div class="nav__user-code">
         <span class="nav__user-code-label">کدملی:</span>
-        <span class="nav__user-code-value" id="national-id">۰۹۱۲۳۴۵۶۷۸</span>
+        <span class="nav__user-code-value" id="national-id">{{ computedNationalCode }}</span>
       </div>
     </section>
     <hr class="nav__divider" />

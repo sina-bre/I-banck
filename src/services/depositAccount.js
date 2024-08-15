@@ -7,7 +7,8 @@ const axiosInstance = createAxiosInstance();
 const methods = {
   get: async () => {
     try {
-      const response = axiosInstance.get(`/${baseAPI}`);
+      const response = await axiosInstance.get(`/${baseAPI}`);
+      console.log(response);
       const { data } = response;
       return data;
     } catch (error) {

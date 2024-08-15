@@ -62,7 +62,7 @@ const computedInputContainerClass = computed(() =>
     </div>
     <slot name="before-start"></slot>
     <div :class="computedInputContainerClass" class="input-container">
-      <div class="after-start">
+      <div class="after-start" :style="{ height: props.height }">
         <slot name="after-start"></slot>
       </div>
       <input
@@ -74,7 +74,7 @@ const computedInputContainerClass = computed(() =>
         v-model="value"
         class="input"
       />
-      <div class="before-end">
+      <div class="before-end" :style="{ height: props.height }">
         <slot name="before-end"></slot>
       </div>
     </div>
@@ -89,17 +89,20 @@ const computedInputContainerClass = computed(() =>
 .input-wrapper {
   @include mixins.flex(center, flex-start, column);
   gap: 0.25rem;
+  overflow: hidden;
 }
 
 .normal {
   @include mixins.text(1rem, 400);
   color: var(--Text-Title, #3c4351);
+  overflow: hidden;
 }
 
 .input {
   font-family: 'Peyda';
   background: var(--Surface-Lightblue, #f9fafb);
   width: 100%;
+  overflow: hidden;
 }
 
 .input::placeholder {
@@ -112,6 +115,7 @@ const computedInputContainerClass = computed(() =>
   border-radius: 0.375rem;
   border: 2px solid var(--Surface-Lightblue, #f9fafb);
   align-self: stretch;
+  overflow: hidden;
 }
 
 .input-wrapper:focus-within .input-container-class {

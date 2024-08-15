@@ -44,8 +44,10 @@ export const useUserStore = defineStore(
     const getDepositAccount = async () => {
       try {
         const response = await authService.depositAccount.get();
+        console.log(response);
         depositAccountStatus.value = response?.status;
         depositAccountData.value = response?.result;
+        console.log(response?.result);
       } catch (error) {
         console.error('Get deposit account failed:', error);
       }
@@ -100,11 +102,19 @@ export const useUserStore = defineStore(
     };
   },
   {
+    // persist: {
+    //   enabled: true,
+    //   strategies: [
+    //     {
+    //       storage: localStorage
+    //     }
+    //   ]
+    // }
     persist: {
       enabled: true,
       strategies: [
         {
-          key: 'encryption-key',
+          key: 'user',
           storage: secureStorage
         }
       ]
