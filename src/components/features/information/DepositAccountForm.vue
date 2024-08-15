@@ -1,26 +1,35 @@
 <script setup>
 import DepositAccountSchema from '@/helpers/validation/DepositAccountSchema';
 import { useForm } from 'vee-validate';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import TextInput from '@/components/global/TextInput.vue';
 import CustomButton from '@/components/global/CustomButton.vue';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/user';
 
-const { handleSubmit, errors } = useForm({
+const userStore = useUserStore();
+
+const { handleSubmit, errors, values } = useForm({
   validationSchema: DepositAccountSchema
 });
-
-const onSubmit = handleSubmit((formValues) => {
-  console.log('Form Submitted:', formValues);
-});
-
-const computedDisableButton = computed(() => Object.keys(errors.value).length > 0);
+const addressValue = ref('');
+const submitLoading = ref(false);
 
 const router = useRouter();
 
-const goNextPage = () => {
-  router.push('/info/upload-img');
-};
+const onSubmit = handleSubmit((formValues) => {
+  submitLoading.value = true;
+
+  setTimeout(() => {
+    userStore.firstName = formValues.name;
+    userStore.lastName = formValues.familyName;
+    userStore.postalCode = formValues.postalCode;
+    userStore.address = addressValue.value;
+    router.push('/info/upload-img');
+  }, 1000);
+});
+
+const computedDisableButton = computed(() => Object.keys(errors.value).length > 0);
 
 const goPrevPage = () => {
   router.push('/panel/dashboard');
@@ -28,7 +37,7 @@ const goPrevPage = () => {
 </script>
 
 <template>
-  <form @submit="onSubmit" action="" class="information-form">
+  <form @submit.prevent="onSubmit" action="" class="information-form">
     <div class="information-form__top">
       <TextInput
         name="name"
@@ -37,6 +46,7 @@ const goPrevPage = () => {
         placeholder="نام فارسی"
         type="text"
         width="26rem"
+        v-model="values.name"
       />
       <TextInput
         labelDynamicClass="information-label"
@@ -45,6 +55,7 @@ const goPrevPage = () => {
         placeholder="نام خانوادگی به صورت کامل"
         type="text"
         width="26rem"
+        v-model="values.familyName"
       />
       <TextInput
         name="postalCode"
@@ -53,6 +64,7 @@ const goPrevPage = () => {
         placeholder="کدپستی 10 رقمی"
         type="text"
         width="26rem"
+        v-model="values.postalCode"
       />
     </div>
     <div class="information-card__form-textarea custom-textarea">
@@ -62,7 +74,9 @@ const goPrevPage = () => {
         type="text"
         id="address-textarea"
         placeholder="آدرس دقیق محل سکونت"
+        v-model="addressValue"
       ></textarea>
+      <!-- <span class="custom-textarea__error" >این فیلد نمیتواند خالی باشد</span> -->
     </div>
     <div class="information-form__actions">
       <CustomButton
@@ -73,12 +87,13 @@ const goPrevPage = () => {
         width="13rem"
       />
       <CustomButton
-        @click="goNextPage"
         text="ثبت و ادامه"
         color="var(--Text-On-Primary)"
         bgColor="var(--primary-500)"
         width="13rem"
         :disabled="computedDisableButton"
+        type="submit"
+        :loading="submitLoading"
       />
     </div>
   </form>
@@ -119,6 +134,13 @@ const goPrevPage = () => {
     &:focus {
       border: 2px solid var(--primary-200);
     }
+  }
+  &__error {
+    color: var(--fail-500, #eb482b);
+    @include mixins.text(0.75rem, 400);
+  }
+  &__border-error {
+    border: 1px solid var(--fail-500, #eb482b);
   }
 }
 </style>
