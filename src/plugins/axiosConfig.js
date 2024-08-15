@@ -15,7 +15,6 @@ const createAxiosInstance = (baseURL) => {
       try {
         const secureLocalStorage = new SecureStorage('encryption-key', 'localStorage');
         const token = secureLocalStorage.getItem('token');
-        console.log(token);
         if (token) {
           config.headers['gateway-token'] = token;
         }
@@ -32,7 +31,7 @@ const createAxiosInstance = (baseURL) => {
 
   instance.interceptors.response.use(
     (response) => {
-      response.data;
+      return response.data;
     },
     (error) => {
       console.error('Response Error:', error.response ? error.response.data : error.message);

@@ -2,6 +2,21 @@
 import CustomCard from '@/components/cards/CustomCard.vue';
 import AccountBox from '@/components/cards/AccountBox.vue';
 import IconLoader from '@/components/shared/IconLoader.vue';
+import { onMounted } from 'vue';
+import { useUserStore } from '@/stores/user.js';
+// import { convertToPersianNumber } from '@/utilities/convertToPersianNumber.js';
+// import { insertComma } from '@/utilities/insertComma.js';
+import moment from 'jalali-moment';
+
+const userStore = useUserStore();
+
+onMounted(async () => {
+  try {
+    await userStore.getDepositAccount();
+  } catch (error) {
+    console.error('Get Deposit Account failed:', error);
+  }
+});
 </script>
 <template>
   <section class="dashboard-container__cards">
@@ -11,11 +26,11 @@ import IconLoader from '@/components/shared/IconLoader.vue';
         <IconLoader icon="infoCircleBold" width="1.5rem" height="1.5rem" color="var(--Gray)" />
       </template>
       <div class="points__amount">
-        <span class="points__amount-num" id="score-amount">0</span>
+        <span class="points__amount-num" id="score-amount">{{}}</span>
         <span class="points__amount-suffix">ریال</span>
       </div>
       <div class="points__months">
-        <span class="points__months-num" id="score-payment-period">0</span>
+        <span class="points__months-num" id="score-payment-period">{{}}</span>
         <span class="points__months-suffix">ماهه</span>
       </div>
     </CustomCard>
@@ -32,13 +47,15 @@ import IconLoader from '@/components/shared/IconLoader.vue';
           <p class="installment__item-title">مبلغ قسط:</p>
 
           <p class="installment__item-value">
-            <span id="upcoming-instalment-amount">0</span>
+            <span id="upcoming-instalment-amount"> </span>
             <span>ریال</span>
           </p>
         </div>
         <div class="installment__item">
           <p class="installment__item-title">تاریخ سررسید:</p>
-          <p class="installment__item-value" id="upcoming-instalment-due-date">1403/02/5</p>
+          <p class="installment__item-value" id="upcoming-instalment-due-date">
+            {{ moment(34535345345, 'YYYY/MM/DD') }}
+          </p>
         </div>
       </div>
     </CustomCard>
