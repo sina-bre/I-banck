@@ -6,10 +6,10 @@ import router from '@/router';
   <main class="main">
     <img src="../../assets/images/404.svg" alt="" />
     <CustomButton
-      text="بازکشت به داشبورد"
+      text=" ورود به لاگین "
       color="var(--Text-Title)"
       bgColor="var(--primary-100)"
-      @click="router.push('/panel/dashboard')"
+      @click="router.push('/auth/login')"
       width="13rem"
     ></CustomButton>
   </main>

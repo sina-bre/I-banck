@@ -114,14 +114,6 @@ export const useUserStore = defineStore(
     };
   },
   {
-    // persist: {
-    //   enabled: true,
-    //   strategies: [
-    //     {
-    //       storage: localStorage
-    //     }
-    //   ]
-    // }
     persist: {
       enabled: true,
       strategies: [

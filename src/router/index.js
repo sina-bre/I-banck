@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { useUserStore } from '@/stores/user';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -6,11 +7,25 @@ const router = createRouter({
     {
       path: '/auth',
       component: () => import('../layout/RegisterLayout.vue'),
+      beforeEnter: (to, from, next) => {
+        if (to.path === '/auth') {
+          next('/auth/login');
+        } else {
+          next();
+        }
+      },
       children: [{ path: 'login', component: () => import('../views/LoginView.vue') }]
     },
     {
       path: '/info',
       component: () => import('../layout/InformationLayout.vue'),
+      beforeEnter: (to, from, next) => {
+        if (to.path === '/info') {
+          next('/info/personal-info');
+        } else {
+          next();
+        }
+      },
       children: [
         {
           path: 'personal-info',
@@ -29,6 +44,13 @@ const router = createRouter({
     {
       path: '/panel',
       component: () => import('../layout/panelLayout.vue'),
+      beforeEnter: (to, from, next) => {
+        if (to.path === '/panel') {
+          next('/panel/dashboard');
+        } else {
+          next();
+        }
+      },
       children: [
         {
           path: 'dashboard',
@@ -43,6 +65,19 @@ const router = createRouter({
       component: () => import('../components/features/NotFound.vue')
     }
   ]
+});
+
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore();
+  const isAuthenticated = userStore.token;
+
+  const publicRoutes = ['/auth/login'];
+
+  if (!isAuthenticated && !publicRoutes.includes(to.path)) {
+    next('/auth/login');
+  } else {
+    next();
+  }
 });
 
 export default router;
