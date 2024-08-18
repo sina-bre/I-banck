@@ -25,9 +25,11 @@ export const useUserStore = defineStore(
     const phoneNumber = ref(null);
     const postalCode = ref(null);
     const address = ref(null);
+    const loading = ref(false);
 
     const login = async (credentials) => {
       try {
+        loading.value = true;
         const response = await authService.auth.login(credentials);
         if (response) {
           showToast('success', 'با موفقیت وارد شدید');
@@ -36,21 +38,29 @@ export const useUserStore = defineStore(
         idNumber.value = response.idNumber;
         firstName.value = response.firstName;
         lastName.value = response.lastName;
-        setTimeout(() => {
-          router.push('/panel/dashboard');
-        }, 2000);
+        router.push('/panel/dashboard');
       } catch (error) {
         console.error('Login failed:', error);
+      } finally {
+        loading.value = false;
       }
     };
 
     const logout = async () => {
-      secureStorage.clear();
-      router.push('/auth/login');
+      try {
+        const response = await authService.auth.logout();
+        token.value = null;
+        secureStorage.clear();
+        router.push('/auth/login');
+        console.log(response);
+      } catch (error) {
+        console.error('Logout failed:', error);
+      }
     };
 
     const getDepositAccount = async () => {
       try {
+        loading.value = true;
         const response = await authService.depositAccount.get();
         console.log(response);
         depositAccountStatus.value = response?.status;
@@ -58,6 +68,8 @@ export const useUserStore = defineStore(
         console.log(response?.result);
       } catch (error) {
         console.error('Get deposit account failed:', error);
+      } finally {
+        loading.value = false;
       }
     };
 
@@ -105,6 +117,7 @@ export const useUserStore = defineStore(
       phoneNumber,
       postalCode,
       address,
+      loading,
       login,
       logout,
       getDepositAccount,

@@ -74,7 +74,12 @@ const computedDisableButton = computed(() => Object.keys(errors.value).length > 
         </template>
       </TextInput>
     </div>
-    <CustomButton width="22.125rem" type="submit" :disabled="computedDisableButton" />
+    <CustomButton
+      width="22.125rem"
+      type="submit"
+      :disabled="computedDisableButton"
+      :loading="userStore.loading"
+    />
   </form>
 </template>
 

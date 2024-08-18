@@ -1,12 +1,12 @@
 import SecureStorage from '../helpers/storage/secureStorage.js';
 import axios from 'axios';
-import useToast from '@/composables/useToast.js'; // Adjust the path as necessary
+import useToast from '@/composables/useToast.js';
 
 const { showToast } = useToast();
 
 const createAxiosInstance = (baseURL) => {
   const instance = axios.create({
-    baseURL: baseURL || 'https://college.apipart.ir', // Default base URL
+    baseURL: baseURL || 'https://college.apipart.ir',
     headers: {
       'Content-Type': 'application/json',
       'gateway-system': 'turboFront'
@@ -43,10 +43,8 @@ const createAxiosInstance = (baseURL) => {
       return response.data;
     },
     (error) => {
-      // console.log('toast message', error.response.data.data.message.fa);
       showToast('error', error.response?.data?.data?.message?.fa || 'خطای ارتباط با سرور');
 
-      // console.error('Response Error:', error.response ? error.response.data : error.message);
       return Promise.reject(error);
     }
   );
