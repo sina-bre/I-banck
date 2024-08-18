@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue';
+import IconLoader from './components/shared/IconLoader.vue';
 // import { RouterView } from 'vue-router';
 // import CustomToast from './components/global/CustomToast.vue';
 import TheTable from '@/components/features/dashboard/TheTable.vue';
@@ -252,7 +253,16 @@ console.log(transactions);
 <template>
   <!-- <RouterView> </RouterView>
   <CustomToast /> -->
-  <TheTable :data="persianTransactions" :headers="headers" :rows-per-page="5" />
+  <TheTable :data="persianTransactions" :headers="headers" :rowsPerPage="5">
+    <template #type="{ row, value }">
+      <IconLoader
+        :icon="value === 'واریز' ? 'deposit' : 'withdraw'"
+        width="2.1rem"
+        height="2.1rem"
+        :color="value === 'واریز' ? '#00BF7A' : '#EB482B'"
+      />
+    </template>
+  </TheTable>
 </template>
 
 <style scoped lang="scss"></style>

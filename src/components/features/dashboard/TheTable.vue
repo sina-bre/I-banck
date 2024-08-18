@@ -115,8 +115,8 @@ const handlePageChange = (pageNumber) => {
       <tbody>
         <tr v-for="row in paginatedData" :key="row.id">
           <td v-for="header in headers" :key="header.key">
-            {{ row[header.key] }}
             <slot :name="header.key" :row="row" :value="row[header.key]" />
+            {{ row[header.key] }}
           </td>
         </tr>
       </tbody>
