@@ -24,7 +24,7 @@ const sortOrder = ref('asc');
 const sortKey = ref(null);
 
 const filteredData = computed(() => {
-  let filtered = props.data;
+  let filtered = [...props.data]; // Clone the data to prevent mutation
 
   if (searchQuery.value) {
     const query = searchQuery.value.toLowerCase();
@@ -63,6 +63,7 @@ const handleSort = (key) => {
     sortKey.value = key;
     sortOrder.value = 'asc';
   }
+  activePageNumber.value = 1;
 };
 
 const handlePageChange = (pageNumber) => {
@@ -106,7 +107,7 @@ const handlePageChange = (pageNumber) => {
     <table class="table">
       <thead>
         <tr>
-          <th v-for="header in headers" :key="header.key">
+          <th v-for="header in headers" :key="header.key" @click="handleSort(header.key)">
             {{ header.label }}
           </th>
         </tr>
