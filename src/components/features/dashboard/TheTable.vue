@@ -24,7 +24,7 @@ const sortOrder = ref('asc');
 const sortKey = ref(null);
 
 const filteredData = computed(() => {
-  let filtered = [...props.data]; // Clone the data to prevent mutation
+  let filtered = [...props.data];
 
   if (searchQuery.value) {
     const query = searchQuery.value.toLowerCase();
@@ -116,6 +116,7 @@ const handlePageChange = (pageNumber) => {
         <tr v-for="row in paginatedData" :key="row.id">
           <td v-for="header in headers" :key="header.key">
             {{ row[header.key] }}
+            <slot :name="header.key" :row="row" :value="row[header.key]" />
           </td>
         </tr>
       </tbody>
