@@ -7,7 +7,7 @@ const baseAPI = 'transactions';
 const methods = {
   get: async () => {
     try {
-      const response = axiosInstance.get(`/${baseAPI}`);
+      const response = await axiosInstance.get(`/${baseAPI}`);
       const { data } = response;
       return data;
     } catch (error) {

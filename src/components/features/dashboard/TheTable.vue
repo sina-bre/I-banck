@@ -48,6 +48,8 @@ const filteredData = computed(() => {
   return filtered;
 });
 
+const isDataExist = computed(() => (props.data.length > 0 ? true : false));
+
 const paginatedData = computed(() => {
   const start = (activePageNumber.value - 1) * props.rowsPerPage;
   const end = start + props.rowsPerPage;
@@ -104,7 +106,7 @@ const handlePageChange = (pageNumber) => {
       </div>
     </div>
 
-    <table class="table">
+    <table class="table" v-if="isDataExist">
       <thead>
         <tr>
           <th v-for="header in headers" :key="header.key" @click="handleSort(header.key)">
