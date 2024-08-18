@@ -26,11 +26,11 @@ const methods = {
     }
   },
 
-  delete: async (slug) => {
+  delete: async () => {
     try {
-      const response = await axiosInstance.delete(`${baseAPI}?id=${slug}`);
-      console.log('reponse delete', response.data);
+      const response = await axiosInstance.delete(`${baseAPI}`);
       const { data } = response;
+      window.location.reload();
       return data;
     } catch (error) {
       console.error('Deposit Account Delete:', error);

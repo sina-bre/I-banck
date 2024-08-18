@@ -48,11 +48,11 @@ export const useUserStore = defineStore(
 
     const logout = async () => {
       try {
-        const response = await authService.auth.logout();
+        await authService.auth.logout();
         token.value = null;
         secureStorage.clear();
         router.push('/auth/login');
-        console.log(response);
+        window.location.reload();
       } catch (error) {
         console.error('Logout failed:', error);
       }
@@ -76,17 +76,17 @@ export const useUserStore = defineStore(
     const createDepositAccount = async (credentials) => {
       try {
         const response = await authService.depositAccount.create(credentials);
-        console.log('create account', response);
         showToast('success', 'اکانت شما با موفقیت ساخته شد');
-        id.value = response.data.id;
+        id.value = response.id;
+        console.log('idd', response.id, id.value);
       } catch (error) {
         console.error('Create deposit account failed:', error);
       }
     };
 
-    const deleteDepositAccount = async (slug) => {
+    const deleteDepositAccount = async () => {
       try {
-        const response = await authService.depositAccount.delete(slug);
+        const response = await authService.depositAccount.delete();
         depositAccountData.value = null;
         id.value = null;
         console.log(response);
