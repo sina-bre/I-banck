@@ -66,6 +66,7 @@ const computedInputContainerClass = computed(() =>
         <slot name="after-start"></slot>
       </div>
       <input
+        v-if="props.as === 'input'"
         :id="inputId"
         :name="props.name"
         :type="props.type"
@@ -74,6 +75,16 @@ const computedInputContainerClass = computed(() =>
         v-model="value"
         class="input"
       />
+      <textarea
+        v-else
+        :id="inputId"
+        :name="props.name"
+        :placeholder="props.placeholder"
+        :style="{ height: props.height }"
+        v-model="value"
+        class="input"
+        :rows="4"
+      ></textarea>
       <div class="before-end" :style="{ height: props.height }">
         <slot name="before-end"></slot>
       </div>
