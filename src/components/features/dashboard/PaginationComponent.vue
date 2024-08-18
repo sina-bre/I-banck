@@ -112,6 +112,7 @@ const paginationItems = computed(() => {
   align-items: center;
   border-radius: 0.25rem;
   background: var(--Surface-Lightblue, #f9fafb);
+  cursor: pointer;
 }
 .page {
   display: flex;
@@ -125,6 +126,7 @@ const paginationItems = computed(() => {
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .active-page {
@@ -134,5 +136,6 @@ const paginationItems = computed(() => {
 
 .disable-button {
   opacity: 0.6;
+  cursor: not-allowed;
 }
 </style>
