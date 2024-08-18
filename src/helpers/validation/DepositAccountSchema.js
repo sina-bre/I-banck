@@ -6,7 +6,8 @@ const DepositAccountSchema = Yup.object().shape({
   postalCode: Yup.string()
     .required('فیلد کدپستی نمی تواند خالی باشد.')
     .min(10, ({ min }) => `کد پستی باید ${min} رقمی باشد`)
-    .max(11, () => 'کدپستی نباید بیشتر از 10 رقم باشد ')
+    .max(11, () => 'کدپستی نباید بیشتر از 10 رقم باشد '),
+  address: Yup.string().required('لطفا آدرس خود را وارد کنید')
 });
 
 export default DepositAccountSchema;

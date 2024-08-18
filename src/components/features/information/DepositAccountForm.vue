@@ -10,9 +10,14 @@ import { useUserStore } from '@/stores/user';
 const userStore = useUserStore();
 
 const { handleSubmit, errors, values } = useForm({
-  validationSchema: DepositAccountSchema
+  validationSchema: DepositAccountSchema,
+  initialValues: {
+    name: userStore.firstName,
+    familyName: userStore.lastName,
+    postalCode: userStore.postalCode,
+    address: userStore.address
+  }
 });
-const addressValue = ref('');
 const submitLoading = ref(false);
 
 const router = useRouter();
@@ -24,7 +29,7 @@ const onSubmit = handleSubmit((formValues) => {
     userStore.firstName = formValues.name;
     userStore.lastName = formValues.familyName;
     userStore.postalCode = formValues.postalCode;
-    userStore.address = addressValue.value;
+    userStore.address = formValues.address;
     router.push('/info/upload-img');
   }, 1000);
 });
@@ -66,17 +71,17 @@ const goPrevPage = () => {
         width="26rem"
         v-model="values.postalCode"
       />
-    </div>
-    <div class="information-card__form-textarea custom-textarea">
-      <label class="custom-textarea__label" for="address">محل سکونت </label>
-      <textarea
-        class="custom-textarea__field"
-        type="text"
-        id="address-textarea"
+      <TextInput
+        name="address"
+        labelDynamicClass="information-label"
+        label="آدرس"
         placeholder="آدرس دقیق محل سکونت"
-        v-model="addressValue"
-      ></textarea>
-      <!-- <span class="custom-textarea__error" >این فیلد نمیتواند خالی باشد</span> -->
+        type="text"
+        as="textarea"
+        width="100%"
+        v-model="values.address"
+        height="7.5rem"
+      />
     </div>
     <div class="information-form__actions">
       <CustomButton
@@ -107,6 +112,7 @@ const goPrevPage = () => {
   &__top {
     @include mixins.flex(center, center);
     gap: 2rem;
+    flex-wrap: wrap;
   }
   &__actions {
     width: 100%;
