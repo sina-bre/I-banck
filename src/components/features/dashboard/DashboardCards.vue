@@ -18,6 +18,7 @@ const scoreAmount = ref('');
 const scorePaymentPeriod = ref('');
 const upcomingInstalmentAmount = ref('');
 const upcomingInstalmentDueDate = ref('');
+const transactions = ref('');
 
 onBeforeMount(async () => {
   try {
@@ -31,6 +32,15 @@ onBeforeMount(async () => {
     upcomingInstalmentDueDate.value = userStore.depositAccountData?.upcomingInstalment?.dueDate;
   } catch (error) {
     console.error('Get Deposit Account failed:', error);
+  }
+});
+
+onBeforeMount(async () => {
+  try {
+    await userStore.getTransactions();
+    transactions.value = userStore.transactions;
+  } catch (error) {
+    console.log('Get Transactions failed:', error);
   }
 });
 
@@ -52,6 +62,36 @@ const computedUpcomingInstalmentAmount = computed(() =>
 const computedUpcomingInstalmentDueDate = computed(() =>
   isDepositAccountCreated.value ? convertToPersianDate(upcomingInstalmentDueDate.value) : ''
 );
+
+const persianTransactions = computed(() =>
+  isDepositAccountCreated.value && transactions.value
+    ? transactions.value?.map((item, index) => {
+        const newItem = {
+          ...item,
+          id: index + 1,
+          type: item.type === 'deposit' ? 'واریز' : 'برداشت',
+          amount: convertToPersianNumber(item.amount),
+          date: new Date(item.date).toLocaleString('fa-IR')
+        };
+        return newItem;
+      })
+    : []
+);
+
+const headers = [
+  {
+    key: 'type',
+    label: 'نوع تراکنش'
+  },
+  {
+    key: 'date',
+    label: 'تاریخ و ساعت تراکنش'
+  },
+  {
+    key: 'amount',
+    label: 'مبلغ تراکنش'
+  }
+];
 </script>
 
 <template>
@@ -97,7 +137,16 @@ const computedUpcomingInstalmentDueDate = computed(() =>
         </div>
       </div>
     </CustomCard>
-    <TheTable />
+    <TheTable :data="persianTransactions" :headers="headers" :rowsPerPage="5">
+      <template #type="{ row, value }">
+        <IconLoader
+          :icon="value === 'واریز' ? 'deposit' : 'withdraw'"
+          width="2.1rem"
+          height="2.1rem"
+          :color="value === 'واریز' ? '#00BF7A' : '#EB482B'"
+        />
+      </template>
+    </TheTable>
   </section>
 </template>
 

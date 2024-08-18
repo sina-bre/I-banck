@@ -99,7 +99,7 @@ export const useUserStore = defineStore(
       try {
         const response = await authService.transactions.get();
         numberOfTransactions.value = response.count;
-        transactions.value = response.transactions;
+        transactions.value = response.results;
       } catch (error) {
         console.error('Get transactions failed:', error);
       }
